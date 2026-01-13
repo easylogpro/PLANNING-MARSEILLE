@@ -782,8 +782,10 @@
     <div class="toasts" id="toasts"></div>
 
     <script>
-        // ============ 100% EN LIGNE - JSONBlob.com (GRATUIT, PAS DE COMPTE) ============
-        const API = 'https://jsonblob.com/api/jsonBlob';
+        // ============ 100% EN LIGNE - JSONBlob via proxy CORS ============
+        const PROXY = 'https://corsproxy.io/?';
+        const API_RAW = 'https://jsonblob.com/api/jsonBlob';
+        const API = PROXY + encodeURIComponent(API_RAW);
         
         const MOIS = ['Janvier','Février','Mars','Avril','Mai','Juin','Juillet','Août','Septembre','Octobre','Novembre','Décembre'];
         const MOIS_COURT = ['Jan','Fév','Mar','Avr','Mai','Jun','Jul','Aoû','Sep','Oct','Nov','Déc'];
@@ -825,16 +827,30 @@
             try {
                 const response = await fetch(API, {
                     method: 'POST',
-                    headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
+                    headers: { 'Content-Type': 'application/json' },
                     body: JSON.stringify(data)
                 });
                 if (!response.ok) throw new Error('Erreur ' + response.status);
-                const location = response.headers.get('Location');
-                if (location) {
-                    blobId = location.split('/').pop();
+                // Récupérer l'ID depuis le header x-]jsonblob ou générer depuis la réponse
+                const text = await response.text();
+                // JSONBlob retourne l'ID dans le header Location ou dans la réponse
+                const loc = response.headers.get('x-]jsonblob') || response.headers.get('Location');
+                if (loc) {
+                    blobId = loc.split('/').pop();
+                } else {
+                    // Essayer de parser la réponse pour trouver l'ID
+                    try {
+                        const json = JSON.parse(text);
+                        if (json.id) blobId = json.id;
+                    } catch(e) {}
+                }
+                
+                if (blobId) {
                     updateUrl();
                     setSync(true);
                     toast('Planning créé !', 'ok');
+                } else {
+                    throw new Error('Pas d\'ID reçu');
                 }
             } catch(e) {
                 console.error(e);
@@ -847,9 +863,10 @@
             if (!blobId) return false;
             setSync(false, 'Sauvegarde...');
             try {
-                const response = await fetch(`${API}/${blobId}`, {
+                const url = PROXY + encodeURIComponent(`${API_RAW}/${blobId}`);
+                const response = await fetch(url, {
                     method: 'PUT',
-                    headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
+                    headers: { 'Content-Type': 'application/json' },
                     body: JSON.stringify(data)
                 });
                 if (!response.ok) throw new Error('Erreur ' + response.status);
@@ -866,7 +883,8 @@
             if (!blobId) return false;
             setSync(false, 'Chargement...');
             try {
-                const response = await fetch(`${API}/${blobId}`, { headers: { 'Accept': 'application/json' } });
+                const url = PROXY + encodeURIComponent(`${API_RAW}/${blobId}`);
+                const response = await fetch(url);
                 if (!response.ok) throw new Error('Erreur ' + response.status);
                 data = await response.json();
                 if (!data.reservations) data.reservations = [];
