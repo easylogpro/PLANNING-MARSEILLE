@@ -21,8 +21,8 @@
             --parents: #00d45a;
             --autres: #a0826d;
             
-            --ferie: #ffd700;
-            --vac: #5a7a9a;
+            --ferie: #ffe066;
+            --vac: #7a9bb8;
             --we: #6a7a8a;
             --accent: #2980d9;
         }
@@ -156,7 +156,15 @@
         .leg { display: flex; align-items: center; gap: 5px; }
         .leg-box { width: 14px; height: 14px; border-radius: 4px; }
         .leg-box.fer { background: var(--ferie); }
-        .leg-box.vac { background: var(--vac); }
+        .leg-box.vac { 
+            background: repeating-linear-gradient(
+                45deg,
+                #3d5a80,
+                #3d5a80 2px,
+                #7a9bb8 2px,
+                #7a9bb8 4px
+            );
+        }
         .leg-box.we { background: var(--we); }
 
         .days-head {
@@ -233,7 +241,15 @@
         .dc.we { background: var(--we); }
         .dc.fer { background: var(--ferie); }
         .dc.fer .num, .dc.fer .label { color: #000; }
-        .dc.vac { background: var(--vac); }
+        .dc.vac { 
+            background: repeating-linear-gradient(
+                45deg,
+                var(--bg-cell),
+                var(--bg-cell) 4px,
+                var(--vac) 4px,
+                var(--vac) 8px
+            );
+        }
 
         .dc.sel {
             border-color: var(--accent) !important;
@@ -468,7 +484,15 @@
         .visu-dc.empty { background: transparent; }
         .visu-dc.we { background: rgba(255,255,255,0.05); color: var(--text-muted); }
         .visu-dc.fer { background: var(--ferie); color: #000; }
-        .visu-dc.vac { background: var(--vac); }
+        .visu-dc.vac { 
+            background: repeating-linear-gradient(
+                45deg,
+                rgba(255,255,255,0.1),
+                rgba(255,255,255,0.1) 2px,
+                var(--vac) 2px,
+                var(--vac) 4px
+            );
+        }
         .visu-dc.res.sabrina { background: var(--sabrina); color: white; }
         .visu-dc.res.yacine { background: var(--yacine); color: white; }
         .visu-dc.res.melinda { background: var(--melinda); color: white; }
@@ -777,8 +801,8 @@
     <div class="toasts" id="toasts"></div>
 
     <script>
-        // ============ STOCKAGE EN LIGNE - extendsclass.com (GRATUIT, CORS OK) ============
-        const API = 'https://json.extendsclass.com/bin';
+        // ============ FIREBASE REALTIME DATABASE (GRATUIT, FIABLE) ============
+        const FIREBASE_URL = 'https://planning-marseille-default-rtdb.europe-west1.firebasedatabase.app';
         
         const MOIS = ['Janvier','Février','Mars','Avril','Mai','Juin','Juillet','Août','Septembre','Octobre','Novembre','Décembre'];
         const MOIS_COURT = ['Jan','Fév','Mar','Avr','Mai','Jun','Jul','Aoû','Sep','Oct','Nov','Déc'];
@@ -797,15 +821,15 @@
         let G = 'sabrina';
         let sel = new Set();
         let data = { reservations: [] };
-        let binId = null;
+        let planningId = null;
         let isOnline = false;
 
-        // ============ CLOUD ============
+        // ============ FIREBASE ============
         async function initCloud() {
             const params = new URLSearchParams(location.search);
-            binId = params.get('id');
+            planningId = params.get('id');
             
-            if (binId) {
+            if (planningId) {
                 const ok = await chargerCloud();
                 if (ok) {
                     updateUrl();
@@ -818,21 +842,20 @@
         async function creerCloud() {
             setSync(false, 'Création...');
             try {
-                const response = await fetch(API, {
-                    method: 'POST',
+                // Générer un ID unique
+                planningId = 'p_' + Date.now() + '_' + Math.random().toString(36).substr(2, 9);
+                
+                const response = await fetch(`${FIREBASE_URL}/plannings/${planningId}.json`, {
+                    method: 'PUT',
                     headers: { 'Content-Type': 'application/json' },
                     body: JSON.stringify(data)
                 });
+                
                 if (!response.ok) throw new Error('Erreur ' + response.status);
-                const result = await response.json();
-                if (result && result.id) {
-                    binId = result.id;
-                    updateUrl();
-                    setSync(true);
-                    toast('Planning créé !', 'ok');
-                } else {
-                    throw new Error('Pas d\'ID');
-                }
+                
+                updateUrl();
+                setSync(true);
+                toast('Planning créé !', 'ok');
             } catch(e) {
                 console.error('Création:', e);
                 setSync(false, 'Erreur');
@@ -841,15 +864,17 @@
         }
 
         async function sauvegarder() {
-            if (!binId) return false;
+            if (!planningId) return false;
             setSync(false, 'Sauvegarde...');
             try {
-                const response = await fetch(`${API}/${binId}`, {
+                const response = await fetch(`${FIREBASE_URL}/plannings/${planningId}.json`, {
                     method: 'PUT',
                     headers: { 'Content-Type': 'application/json' },
                     body: JSON.stringify(data)
                 });
+                
                 if (!response.ok) throw new Error('Erreur ' + response.status);
+                
                 setSync(true);
                 return true;
             } catch(e) {
@@ -861,17 +886,26 @@
         }
 
         async function chargerCloud() {
-            if (!binId) return false;
+            if (!planningId) return false;
             setSync(false, 'Chargement...');
             try {
-                const response = await fetch(`${API}/${binId}`);
+                const response = await fetch(`${FIREBASE_URL}/plannings/${planningId}.json`);
+                
                 if (!response.ok) throw new Error('Erreur ' + response.status);
-                data = await response.json();
-                if (!data.reservations) data.reservations = [];
-                renderCal();
-                renderVisu();
-                setSync(true);
-                return true;
+                
+                const result = await response.json();
+                
+                if (result) {
+                    data = result;
+                    if (!data.reservations) data.reservations = [];
+                    renderCal();
+                    renderVisu();
+                    setSync(true);
+                    return true;
+                } else {
+                    // Planning n'existe pas
+                    return false;
+                }
             } catch(e) {
                 console.error('Chargement:', e);
                 setSync(false, 'Erreur');
@@ -880,8 +914,8 @@
         }
 
         function updateUrl() {
-            if (binId) {
-                const url = `${location.origin}${location.pathname}?id=${binId}`;
+            if (planningId) {
+                const url = `${location.origin}${location.pathname}?id=${planningId}`;
                 history.replaceState({}, '', url);
                 document.getElementById('shareUrl').value = url;
             }
@@ -1116,7 +1150,7 @@
             renderVisu();
             updN();
             document.getElementById('loader').classList.add('hide');
-            setInterval(() => { if (binId && isOnline) chargerCloud(); }, 15000);
+            setInterval(() => { if (planningId && isOnline) chargerCloud(); }, 15000);
         }
         
         init();
