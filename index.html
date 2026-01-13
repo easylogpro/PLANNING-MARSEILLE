@@ -9,7 +9,7 @@
         :root {
             --bg-primary: #1a2332;
             --bg-card: #253044;
-            --bg-calendar: #c8d6e8;
+            --bg-calendar: #1e2d40;
             --bg-cell: #3d5a80;
             --text-dark: #1a2332;
             --text-light: #ffffff;
@@ -22,7 +22,7 @@
             --autres: #a0826d;
             
             --ferie: #ffd700;
-            --vac: #b388ff;
+            --vac: #5a7a9a;
             --we: #6a7a8a;
             --accent: #2980d9;
         }
@@ -41,18 +41,18 @@
             height: 100dvh;
             display: flex;
             flex-direction: column;
-            padding: 8px;
-            gap: 8px;
+            padding: 6px;
+            gap: 6px;
             overflow: hidden;
         }
 
-        /* HEADER - TITRE CENTRÉ PLEINE LARGEUR */
+        /* HEADER */
         .header {
             display: flex;
             align-items: center;
-            padding: 10px 12px;
+            padding: 8px 12px;
             background: var(--bg-card);
-            border-radius: 16px;
+            border-radius: 14px;
         }
 
         .month-display {
@@ -60,118 +60,120 @@
             text-align: center;
         }
         .month-name {
-            font-size: 3rem;
+            font-size: 2.2rem;
             font-weight: 900;
-            letter-spacing: 6px;
+            letter-spacing: 3px;
         }
         .month-year {
-            font-size: 1rem;
+            font-size: 0.9rem;
             color: var(--text-muted);
             font-weight: 700;
         }
 
-        .header-btns { display: flex; gap: 8px; }
+        .header-btns { display: flex; gap: 6px; }
         .icon-btn {
-            width: 48px;
-            height: 48px;
-            border-radius: 14px;
+            width: 44px;
+            height: 44px;
+            border-radius: 12px;
             border: none;
             background: rgba(255,255,255,0.1);
             color: white;
-            font-size: 1.4rem;
+            font-size: 1.3rem;
             cursor: pointer;
         }
         .icon-btn:active { background: var(--accent); transform: scale(0.95); }
 
-        /* GROUPES - PLEINE LARGEUR */
+        /* GROUPES - RESPONSIVE */
         .groups {
             display: flex;
-            gap: 6px;
-            padding: 10px;
+            gap: 4px;
+            padding: 8px;
             background: var(--bg-card);
-            border-radius: 16px;
+            border-radius: 14px;
         }
 
         .grp {
             flex: 1;
-            padding: 18px 10px;
-            border-radius: 25px;
+            min-width: 0;
+            padding: 10px 4px;
+            border-radius: 20px;
             cursor: pointer;
-            font-size: 1.3rem;
+            font-size: 0.85rem;
             font-weight: 800;
             text-align: center;
-            border: 3px solid;
+            border: 2px solid;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
         }
 
         .grp:active { transform: scale(0.95); }
 
         .grp.sabrina { background: rgba(255,26,108,0.15); color: var(--sabrina); border-color: var(--sabrina); }
         .grp.yacine { background: rgba(0,184,230,0.15); color: var(--yacine); border-color: var(--yacine); }
-        .grp.melinda { background: rgba(255,107,53,0.15); color: var(--melinda); border-color: var(--melinda); }
+        .grp.melinda { background: rgba(255,140,0,0.15); color: var(--melinda); border-color: var(--melinda); }
         .grp.parents { background: rgba(0,212,90,0.15); color: var(--parents); border-color: var(--parents); }
-        .grp.autres { background: rgba(255,204,0,0.15); color: var(--autres); border-color: var(--autres); }
+        .grp.autres { background: rgba(160,130,109,0.15); color: var(--autres); border-color: var(--autres); }
 
         .grp.on {
             animation: pulseGlow 1.2s ease-in-out infinite;
-            transform: scale(1.05);
+            transform: scale(1.02);
         }
 
-        .grp.sabrina.on { background: var(--sabrina); color: white; box-shadow: 0 0 30px var(--sabrina); }
-        .grp.yacine.on { background: var(--yacine); color: white; box-shadow: 0 0 30px var(--yacine); }
-        .grp.melinda.on { background: var(--melinda); color: white; box-shadow: 0 0 30px var(--melinda); }
-        .grp.parents.on { background: var(--parents); color: white; box-shadow: 0 0 30px var(--parents); }
-        .grp.autres.on { background: var(--autres); color: white; box-shadow: 0 0 30px var(--autres); }
+        .grp.sabrina.on { background: var(--sabrina); color: white; box-shadow: 0 0 20px var(--sabrina); }
+        .grp.yacine.on { background: var(--yacine); color: white; box-shadow: 0 0 20px var(--yacine); }
+        .grp.melinda.on { background: var(--melinda); color: white; box-shadow: 0 0 20px var(--melinda); }
+        .grp.parents.on { background: var(--parents); color: white; box-shadow: 0 0 20px var(--parents); }
+        .grp.autres.on { background: var(--autres); color: white; box-shadow: 0 0 20px var(--autres); }
 
         @keyframes pulseGlow {
             0%, 100% { opacity: 1; }
             50% { opacity: 0.8; }
         }
 
-        /* CALENDRIER - FOND CLAIR AUTOUR DES CASES */
+        /* CALENDRIER */
         .cal-wrap {
             flex: 1;
             background: var(--bg-calendar);
-            border-radius: 18px;
-            padding: 12px;
+            border-radius: 16px;
+            padding: 8px;
             display: flex;
             flex-direction: column;
             overflow: hidden;
             min-height: 0;
         }
 
-        /* LÉGENDE */
         .legend {
             display: flex;
             justify-content: center;
-            gap: 20px;
-            padding: 8px;
-            font-size: 0.85rem;
+            gap: 14px;
+            padding: 6px;
+            font-size: 0.75rem;
             font-weight: 800;
-            color: var(--text-dark);
+            color: var(--text-light);
         }
 
-        .leg { display: flex; align-items: center; gap: 6px; }
-        .leg-box { width: 16px; height: 16px; border-radius: 5px; }
+        .leg { display: flex; align-items: center; gap: 5px; }
+        .leg-box { width: 14px; height: 14px; border-radius: 4px; }
         .leg-box.fer { background: var(--ferie); }
-        .leg-box.vac { background: #5a7a9a; border: none; }
+        .leg-box.vac { background: var(--vac); }
         .leg-box.we { background: var(--we); }
 
         .days-head {
             display: grid;
             grid-template-columns: repeat(7, 1fr);
-            gap: 5px;
-            margin-bottom: 8px;
+            gap: 4px;
+            margin-bottom: 4px;
         }
 
         .dh {
             text-align: center;
-            font-size: 0.95rem;
+            font-size: 0.8rem;
             font-weight: 900;
-            color: var(--text-dark);
-            padding: 6px 0;
+            color: var(--text-light);
+            padding: 4px 0;
         }
 
-        /* CONTAINER SWIPE */
         .swipe-container {
             flex: 1;
             position: relative;
@@ -185,22 +187,21 @@
             display: grid;
             grid-template-columns: repeat(7, 1fr);
             grid-template-rows: repeat(6, 1fr);
-            gap: 5px;
-            transition: transform 0.3s ease;
+            gap: 4px;
         }
 
-        /* CELLULE JOUR */
+        /* CELLULES - PLUS GRANDES */
         .dc {
             display: flex;
             flex-direction: column;
             align-items: center;
             justify-content: center;
             background: var(--bg-cell);
-            border-radius: 12px;
+            border-radius: 10px;
             cursor: pointer;
             position: relative;
             border: 3px solid transparent;
-            gap: 2px;
+            gap: 1px;
         }
 
         .dc:active { transform: scale(0.92); }
@@ -208,7 +209,7 @@
         .dc.empty:active { transform: none; }
 
         .dc .label {
-            font-size: 0.55rem;
+            font-size: 0.5rem;
             font-weight: 900;
             color: white;
             text-transform: uppercase;
@@ -216,14 +217,14 @@
         }
 
         .dc .num { 
-            font-size: 1.4rem; 
+            font-size: 1.3rem; 
             font-weight: 900; 
             line-height: 1;
             color: white;
         }
 
         .dc .ini { 
-            font-size: 0.7rem; 
+            font-size: 0.6rem; 
             font-weight: 900; 
             line-height: 1;
             color: white;
@@ -232,11 +233,11 @@
         .dc.we { background: var(--we); }
         .dc.fer { background: var(--ferie); }
         .dc.fer .num, .dc.fer .label { color: #000; }
-        .dc.vac { background: #5a7a9a; border: none; }
+        .dc.vac { background: var(--vac); }
 
         .dc.sel {
             border-color: var(--accent) !important;
-            box-shadow: 0 0 15px var(--accent);
+            box-shadow: 0 0 12px var(--accent);
         }
 
         .dc.res.sabrina { background: var(--sabrina) !important; }
@@ -247,38 +248,38 @@
 
         .swipe-hint {
             text-align: center;
-            font-size: 0.7rem;
-            color: var(--text-dark);
-            padding: 4px;
-            opacity: 0.7;
+            font-size: 0.65rem;
+            color: var(--text-muted);
+            padding: 3px;
         }
 
         /* BARRE DU BAS */
         .bottom-bar {
             display: flex;
             flex-direction: column;
-            gap: 8px;
-            padding: 12px;
+            gap: 6px;
+            padding: 8px;
             background: var(--bg-card);
-            border-radius: 16px;
+            border-radius: 14px;
         }
 
         .bottom-row {
             display: flex;
             align-items: center;
-            gap: 10px;
+            gap: 8px;
         }
 
         .nav-btn {
-            width: 50px;
-            height: 50px;
-            border-radius: 14px;
+            width: 46px;
+            height: 46px;
+            border-radius: 12px;
             border: none;
             background: var(--accent);
             color: white;
-            font-size: 1.5rem;
+            font-size: 1.4rem;
             font-weight: 900;
             cursor: pointer;
+            flex-shrink: 0;
         }
         .nav-btn:active { transform: scale(0.92); opacity: 0.8; }
 
@@ -287,55 +288,56 @@
             display: flex;
             align-items: center;
             justify-content: center;
-            gap: 8px;
+            gap: 6px;
         }
 
         .sync-dot {
-            width: 12px;
-            height: 12px;
+            width: 10px;
+            height: 10px;
             border-radius: 50%;
             background: var(--parents);
             animation: pulse 2s infinite;
         }
-        .sync-dot.off { background: var(--ferie); animation: none; }
+        .sync-dot.off { background: #ff3b4a; animation: none; }
 
         @keyframes pulse { 0%,100%{opacity:1}50%{opacity:0.4} }
 
         .sync-txt {
-            font-size: 0.9rem;
+            font-size: 0.8rem;
             font-weight: 700;
             color: var(--text-muted);
         }
 
         .sel-count {
-            font-size: 1rem;
-            font-weight: 800;
-        }
-        .sel-count b { color: var(--accent); font-size: 1.2rem; }
-
-        .visu-link {
-            padding: 12px 16px;
-            background: rgba(255,255,255,0.1);
-            border-radius: 12px;
-            color: white;
-            text-decoration: none;
             font-size: 0.9rem;
             font-weight: 800;
+        }
+        .sel-count b { color: var(--accent); font-size: 1.1rem; }
+
+        .visu-link {
+            padding: 10px 12px;
+            background: rgba(255,255,255,0.1);
+            border-radius: 10px;
+            color: white;
+            text-decoration: none;
+            font-size: 0.8rem;
+            font-weight: 800;
+            flex-shrink: 0;
         }
         .visu-link:active { background: var(--accent); }
 
         .action-btns {
             display: flex;
-            gap: 10px;
+            gap: 8px;
         }
 
         .btn {
             flex: 1;
-            padding: 18px 20px;
-            border-radius: 14px;
+            padding: 14px 16px;
+            border-radius: 12px;
             border: none;
             font-family: 'Nunito', sans-serif;
-            font-size: 1.3rem;
+            font-size: 1.1rem;
             font-weight: 900;
             cursor: pointer;
         }
@@ -343,7 +345,7 @@
         .btn-danger { background: #ff3b4a; color: white; }
         .btn-primary { background: var(--accent); color: white; }
 
-        /* ============ VISU 6 MOIS - ÉLARGI ============ */
+        /* ============ VISU 3 MOIS ============ */
         .visu-page {
             display: none;
             position: fixed;
@@ -360,24 +362,24 @@
             display: flex;
             align-items: center;
             justify-content: space-between;
-            padding: 10px 14px;
+            padding: 10px 12px;
             background: var(--bg-card);
             border-radius: 14px;
         }
 
         .visu-title { 
-            font-size: 1.8rem; 
+            font-size: 1.2rem; 
             font-weight: 900; 
         }
 
         .visu-close {
-            width: 48px;
-            height: 48px;
-            border-radius: 14px;
+            width: 44px;
+            height: 44px;
+            border-radius: 12px;
             border: none;
-            background: var(--ferie);
+            background: #ff3b4a;
             color: white;
-            font-size: 1.5rem;
+            font-size: 1.4rem;
             cursor: pointer;
         }
 
@@ -390,9 +392,9 @@
         }
 
         .visu-leg {
-            padding: 8px 16px;
-            border-radius: 14px;
-            font-size: 1rem;
+            padding: 5px 10px;
+            border-radius: 12px;
+            font-size: 0.7rem;
             font-weight: 800;
             color: white;
         }
@@ -402,20 +404,20 @@
         .visu-leg.parents { background: var(--parents); }
         .visu-leg.autres { background: var(--autres); }
 
-        /* GRILLE 6 MOIS - 2 COLONNES PLEINE LARGEUR */
+        /* GRILLE 3 MOIS VERTICALE */
         .visu-grid {
             flex: 1;
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            grid-template-rows: repeat(3, 1fr);
-            gap: 8px;
+            display: flex;
+            flex-direction: column;
+            gap: 6px;
             overflow: hidden;
         }
 
         .visu-month {
+            flex: 1;
             background: var(--bg-card);
             border-radius: 12px;
-            padding: 12px;
+            padding: 8px;
             display: flex;
             flex-direction: column;
             min-height: 0;
@@ -423,12 +425,12 @@
 
         .visu-month-head {
             text-align: center;
-            font-size: 1.5rem;
+            font-size: 1rem;
             font-weight: 900;
-            padding: 10px;
+            padding: 4px;
             background: rgba(255,255,255,0.1);
-            border-radius: 8px;
-            margin-bottom: 8px;
+            border-radius: 6px;
+            margin-bottom: 4px;
         }
 
         .visu-days-head {
@@ -439,7 +441,7 @@
 
         .visu-dh {
             text-align: center;
-            font-size: 0.8rem;
+            font-size: 0.6rem;
             font-weight: 800;
             color: var(--text-muted);
         }
@@ -448,7 +450,7 @@
             flex: 1;
             display: grid;
             grid-template-columns: repeat(7, 1fr);
-            gap: 5px;
+            gap: 3px;
             align-content: start;
         }
 
@@ -458,15 +460,15 @@
             align-items: center;
             justify-content: center;
             background: rgba(255,255,255,0.1);
-            border-radius: 6px;
-            font-size: 1rem;
+            border-radius: 5px;
+            font-size: 0.7rem;
             font-weight: 800;
         }
 
         .visu-dc.empty { background: transparent; }
         .visu-dc.we { background: rgba(255,255,255,0.05); color: var(--text-muted); }
         .visu-dc.fer { background: var(--ferie); color: #000; }
-        .visu-dc.vac { background: rgba(255,255,255,0.25); }
+        .visu-dc.vac { background: var(--vac); }
         .visu-dc.res.sabrina { background: var(--sabrina); color: white; }
         .visu-dc.res.yacine { background: var(--yacine); color: white; }
         .visu-dc.res.melinda { background: var(--melinda); color: white; }
@@ -497,10 +499,10 @@
 
         .modal {
             background: var(--bg-card);
-            border-radius: 20px;
-            padding: 24px;
+            border-radius: 18px;
+            padding: 20px;
             width: 100%;
-            max-width: 360px;
+            max-width: 340px;
             animation: popIn 0.2s ease;
         }
 
@@ -510,27 +512,27 @@
             display: flex;
             justify-content: space-between;
             align-items: center;
-            margin-bottom: 18px;
+            margin-bottom: 16px;
         }
-        .modal-title { font-size: 1.2rem; font-weight: 900; }
+        .modal-title { font-size: 1.1rem; font-weight: 900; }
         .modal-x {
-            width: 36px;
-            height: 36px;
+            width: 34px;
+            height: 34px;
             border-radius: 50%;
             border: none;
             background: rgba(255,255,255,0.1);
             color: white;
-            font-size: 1.3rem;
+            font-size: 1.2rem;
             cursor: pointer;
         }
 
         .group-badge {
             display: inline-block;
-            padding: 10px 22px;
-            border-radius: 25px;
-            font-size: 1.1rem;
+            padding: 8px 18px;
+            border-radius: 20px;
+            font-size: 1rem;
             font-weight: 900;
-            margin-bottom: 16px;
+            margin-bottom: 14px;
             color: white;
         }
         .group-badge.sabrina { background: var(--sabrina); }
@@ -539,76 +541,76 @@
         .group-badge.parents { background: var(--parents); }
         .group-badge.autres { background: var(--autres); }
 
-        .fg { margin-bottom: 14px; }
-        .fl { display: block; font-size: 0.9rem; font-weight: 800; margin-bottom: 8px; color: var(--text-muted); }
+        .fg { margin-bottom: 12px; }
+        .fl { display: block; font-size: 0.85rem; font-weight: 800; margin-bottom: 6px; color: var(--text-muted); }
         .fi {
             width: 100%;
-            padding: 14px;
+            padding: 12px;
             background: rgba(255,255,255,0.1);
             border: 2px solid transparent;
-            border-radius: 12px;
+            border-radius: 10px;
             color: white;
             font-family: 'Nunito', sans-serif;
-            font-size: 1.1rem;
+            font-size: 1rem;
         }
         .fi:focus { outline: none; border-color: var(--accent); }
 
         .dates-box {
             background: rgba(255,255,255,0.1);
-            border-radius: 12px;
-            padding: 12px;
+            border-radius: 10px;
+            padding: 10px;
             display: flex;
             flex-wrap: wrap;
-            gap: 8px;
-            max-height: 100px;
+            gap: 6px;
+            max-height: 90px;
             overflow-y: auto;
         }
 
         .date-chip {
-            padding: 6px 12px;
+            padding: 5px 10px;
             background: rgba(255,255,255,0.15);
-            border-radius: 20px;
-            font-size: 0.9rem;
+            border-radius: 15px;
+            font-size: 0.85rem;
             font-weight: 800;
         }
 
-        .modal-btns { display: flex; gap: 12px; margin-top: 18px; }
+        .modal-btns { display: flex; gap: 10px; margin-top: 16px; }
         .modal-btns .btn { flex: 1; }
 
         .share-url {
             width: 100%;
-            padding: 14px;
+            padding: 12px;
             background: rgba(0,0,0,0.3);
             border: none;
-            border-radius: 12px;
+            border-radius: 10px;
             color: var(--accent);
-            font-size: 0.8rem;
+            font-size: 0.7rem;
             font-family: monospace;
-            margin: 14px 0;
+            margin: 12px 0;
             text-align: center;
         }
 
         .help-text {
-            font-size: 0.95rem;
+            font-size: 0.9rem;
             color: var(--text-muted);
-            line-height: 1.6;
-            margin-bottom: 12px;
+            line-height: 1.5;
+            margin-bottom: 10px;
         }
         .help-text b { color: white; }
 
-        .toasts { position: fixed; top: 70px; left: 12px; right: 12px; z-index: 2000; }
+        .toasts { position: fixed; top: 60px; left: 10px; right: 10px; z-index: 2000; }
         .toast {
-            padding: 14px 18px;
+            padding: 12px 16px;
             background: var(--bg-card);
-            border-radius: 14px;
-            margin-bottom: 10px;
-            font-size: 1rem;
+            border-radius: 12px;
+            margin-bottom: 8px;
+            font-size: 0.9rem;
             font-weight: 800;
             animation: slideDown 0.2s ease;
         }
-        .toast.ok { border-left: 5px solid var(--parents); }
-        .toast.err { border-left: 5px solid var(--ferie); }
-        .toast.info { border-left: 5px solid var(--accent); }
+        .toast.ok { border-left: 4px solid var(--parents); }
+        .toast.err { border-left: 4px solid #ff3b4a; }
+        .toast.info { border-left: 4px solid var(--accent); }
 
         @keyframes slideDown { from{opacity:0;transform:translateY(-10px)}to{opacity:1;transform:translateY(0)} }
 
@@ -620,15 +622,15 @@
             flex-direction: column;
             align-items: center;
             justify-content: center;
-            gap: 18px;
+            gap: 16px;
             z-index: 3000;
         }
         .loading.hide { display: none; }
 
         .spinner {
-            width: 50px;
-            height: 50px;
-            border: 5px solid rgba(255,255,255,0.2);
+            width: 46px;
+            height: 46px;
+            border: 4px solid rgba(255,255,255,0.2);
             border-top-color: var(--accent);
             border-radius: 50%;
             animation: spin 0.7s linear infinite;
@@ -642,12 +644,10 @@
 <body>
     <div class="loading" id="loader">
         <div class="spinner"></div>
-        <span style="color:var(--text-muted);font-size:1rem">Connexion...</span>
+        <span style="color:var(--text-muted);font-size:0.9rem">Connexion...</span>
     </div>
 
-    <!-- PAGE PRINCIPALE -->
     <div class="app">
-        <!-- HEADER -->
         <div class="header">
             <div class="month-display">
                 <div class="month-name" id="navMonth">Janvier</div>
@@ -659,10 +659,8 @@
             </div>
         </div>
 
-        <!-- GROUPES - PLEINE LARGEUR -->
         <div class="groups" id="grps"></div>
 
-        <!-- CALENDRIER -->
         <div class="cal-wrap">
             <div class="legend">
                 <div class="leg"><div class="leg-box fer"></div><span>Férié</span></div>
@@ -684,7 +682,6 @@
             <div class="swipe-hint">← Balayer pour changer de mois →</div>
         </div>
 
-        <!-- BARRE DU BAS -->
         <div class="bottom-bar">
             <div class="bottom-row">
                 <button class="nav-btn" onclick="navP(-1)">◀</button>
@@ -693,7 +690,7 @@
                     <span class="sync-txt" id="syncTxt">Connexion...</span>
                 </div>
                 <div class="sel-count"><b id="selN">0</b> sélect.</div>
-                <a href="#" class="visu-link" onclick="openVisu();return false;">📅 6 mois</a>
+                <a href="#" class="visu-link" onclick="openVisu();return false;">📅 3 mois</a>
                 <button class="nav-btn" onclick="navP(1)">▶</button>
             </div>
             <div class="action-btns">
@@ -703,10 +700,10 @@
         </div>
     </div>
 
-    <!-- PAGE VISU 6 MOIS -->
+    <!-- VISU 3 MOIS -->
     <div class="visu-page" id="visuPage">
         <div class="visu-header">
-            <div class="visu-title" id="visuTitle">Jan - Jun 2026</div>
+            <div class="visu-title" id="visuTitle">Jan - Mar 2026</div>
             <button class="visu-close" onclick="closeVisu()">✕</button>
         </div>
 
@@ -721,8 +718,8 @@
         <div class="visu-grid" id="visuGrid"></div>
 
         <div class="visu-nav-bar">
-            <button class="nav-btn" onclick="visuNav(-6)">◀ 6 mois</button>
-            <button class="nav-btn" onclick="visuNav(6)">6 mois ▶</button>
+            <button class="nav-btn" onclick="visuNav(-3)">◀</button>
+            <button class="nav-btn" onclick="visuNav(3)">▶</button>
         </div>
     </div>
 
@@ -768,24 +765,20 @@
                 <h2 class="modal-title">❓ Aide</h2>
                 <button class="modal-x" onclick="closeM('mHelp')">×</button>
             </div>
-            <p class="help-text" style="background:rgba(0,212,90,0.2);padding:14px;border-radius:12px;margin-bottom:16px">
+            <p class="help-text" style="background:rgba(0,212,90,0.2);padding:12px;border-radius:10px;margin-bottom:14px">
                 <b style="color:var(--parents)">✓ Sauvegarde 100% en ligne</b><br>
-                JSONBlob.com = gratuit, <b>PAS DE COMPTE</b> !<br>
-                Tout est automatique.
+                Gratuit, pas de compte !
             </p>
             <p class="help-text"><b>Réserver :</b> Groupe → Jours → Réserver</p>
             <p class="help-text"><b>Supprimer :</b> Jours → Effacer</p>
-            <p class="help-text"><b>Changer mois :</b> Flèches ou balayer</p>
         </div>
     </div>
 
     <div class="toasts" id="toasts"></div>
 
     <script>
-        // ============ 100% EN LIGNE - JSONBlob via proxy CORS ============
-        const PROXY = 'https://corsproxy.io/?';
-        const API_RAW = 'https://jsonblob.com/api/jsonBlob';
-        const API = PROXY + encodeURIComponent(API_RAW);
+        // ============ STOCKAGE EN LIGNE - extendsclass.com (GRATUIT, CORS OK) ============
+        const API = 'https://json.extendsclass.com/bin';
         
         const MOIS = ['Janvier','Février','Mars','Avril','Mai','Juin','Juillet','Août','Septembre','Octobre','Novembre','Décembre'];
         const MOIS_COURT = ['Jan','Fév','Mar','Avr','Mai','Jun','Jul','Aoû','Sep','Oct','Nov','Déc'];
@@ -804,15 +797,15 @@
         let G = 'sabrina';
         let sel = new Set();
         let data = { reservations: [] };
-        let blobId = null;
+        let binId = null;
         let isOnline = false;
 
         // ============ CLOUD ============
         async function initCloud() {
             const params = new URLSearchParams(location.search);
-            blobId = params.get('id');
+            binId = params.get('id');
             
-            if (blobId) {
+            if (binId) {
                 const ok = await chargerCloud();
                 if (ok) {
                     updateUrl();
@@ -831,40 +824,27 @@
                     body: JSON.stringify(data)
                 });
                 if (!response.ok) throw new Error('Erreur ' + response.status);
-                // Récupérer l'ID depuis le header x-]jsonblob ou générer depuis la réponse
-                const text = await response.text();
-                // JSONBlob retourne l'ID dans le header Location ou dans la réponse
-                const loc = response.headers.get('x-]jsonblob') || response.headers.get('Location');
-                if (loc) {
-                    blobId = loc.split('/').pop();
-                } else {
-                    // Essayer de parser la réponse pour trouver l'ID
-                    try {
-                        const json = JSON.parse(text);
-                        if (json.id) blobId = json.id;
-                    } catch(e) {}
-                }
-                
-                if (blobId) {
+                const result = await response.json();
+                if (result && result.id) {
+                    binId = result.id;
                     updateUrl();
                     setSync(true);
                     toast('Planning créé !', 'ok');
                 } else {
-                    throw new Error('Pas d\'ID reçu');
+                    throw new Error('Pas d\'ID');
                 }
             } catch(e) {
-                console.error(e);
-                setSync(false, 'Erreur connexion');
-                toast('Erreur connexion', 'err');
+                console.error('Création:', e);
+                setSync(false, 'Erreur');
+                toast('Erreur création', 'err');
             }
         }
 
         async function sauvegarder() {
-            if (!blobId) return false;
+            if (!binId) return false;
             setSync(false, 'Sauvegarde...');
             try {
-                const url = PROXY + encodeURIComponent(`${API_RAW}/${blobId}`);
-                const response = await fetch(url, {
+                const response = await fetch(`${API}/${binId}`, {
                     method: 'PUT',
                     headers: { 'Content-Type': 'application/json' },
                     body: JSON.stringify(data)
@@ -873,18 +853,18 @@
                 setSync(true);
                 return true;
             } catch(e) {
-                console.error(e);
+                console.error('Sauvegarde:', e);
                 setSync(false, 'Erreur');
+                toast('Erreur sauvegarde', 'err');
                 return false;
             }
         }
 
         async function chargerCloud() {
-            if (!blobId) return false;
+            if (!binId) return false;
             setSync(false, 'Chargement...');
             try {
-                const url = PROXY + encodeURIComponent(`${API_RAW}/${blobId}`);
-                const response = await fetch(url);
+                const response = await fetch(`${API}/${binId}`);
                 if (!response.ok) throw new Error('Erreur ' + response.status);
                 data = await response.json();
                 if (!data.reservations) data.reservations = [];
@@ -893,15 +873,15 @@
                 setSync(true);
                 return true;
             } catch(e) {
-                console.error(e);
+                console.error('Chargement:', e);
                 setSync(false, 'Erreur');
                 return false;
             }
         }
 
         function updateUrl() {
-            if (blobId) {
-                const url = `${location.origin}${location.pathname}?id=${blobId}`;
+            if (binId) {
+                const url = `${location.origin}${location.pathname}?id=${binId}`;
                 history.replaceState({}, '', url);
                 document.getElementById('shareUrl').value = url;
             }
@@ -927,7 +907,6 @@
             return new Set(f);
         }
 
-        // ============ VACANCES ============
         function vacances(y) {
             const v=[];
             const add=(s,e)=>{const sd=new Date(s),ed=new Date(e);for(let d=new Date(sd);d<=ed;d.setDate(d.getDate()+1))if(d.getFullYear()===y)v.push(fmt(d))};
@@ -1002,7 +981,7 @@
             const grid = document.getElementById('visuGrid');
             let h = '';
             
-            for (let m = 0; m < 6; m++) {
+            for (let m = 0; m < 3; m++) {
                 const month = (visuMonth + m) % 12;
                 const year = visuYear + Math.floor((visuMonth + m) / 12);
                 const ferSet = feries(year);
@@ -1036,9 +1015,9 @@
             }
             
             grid.innerHTML = h;
-            const endMonthIdx = (visuMonth + 5) % 12;
-            const endYear = visuYear + Math.floor((visuMonth + 5) / 12);
-            document.getElementById('visuTitle').textContent = `${MOIS_COURT[visuMonth]} ${visuYear} - ${MOIS_COURT[endMonthIdx]} ${endYear}`;
+            const endMonthIdx = (visuMonth + 2) % 12;
+            const endYear = visuYear + Math.floor((visuMonth + 2) / 12);
+            document.getElementById('visuTitle').textContent = `${MOIS_COURT[visuMonth]} - ${MOIS_COURT[endMonthIdx]} ${endYear}`;
         }
 
         function updN() { document.getElementById('selN').textContent = sel.size; }
@@ -1053,7 +1032,6 @@
             renderCal();
         }
 
-        // ============ SWIPE ============
         let touchStartX = 0;
         function initSwipe() {
             const container = document.getElementById('swipeContainer');
@@ -1064,7 +1042,6 @@
             }, { passive: true });
         }
 
-        // ============ VISU ============
         function openVisu() { visuMonth = currentMonth; visuYear = currentYear; renderVisu(); document.getElementById('visuPage').classList.add('on'); }
         function closeVisu() { document.getElementById('visuPage').classList.remove('on'); }
         function visuNav(dir) {
@@ -1074,7 +1051,6 @@
             renderVisu();
         }
 
-        // ============ EFFACER ============
         async function effacer() {
             if (sel.size === 0) { toast('Sélectionne des dates', 'info'); return; }
             let supprime = false;
@@ -1091,7 +1067,6 @@
             sel.clear(); renderCal(); renderVisu(); updN();
         }
 
-        // ============ RÉSERVER ============
         function reserver() {
             if (sel.size === 0) { toast('Sélectionne des dates', 'info'); return; }
             const g = GRP.find(x => x.id === G);
@@ -1121,7 +1096,6 @@
             sel.clear(); renderCal(); renderVisu(); updN();
         }
 
-        // ============ MODALS ============
         function openShare() { document.getElementById('shareUrl').value = location.href; document.getElementById('mShare').classList.add('on'); }
         function copyUrl() { navigator.clipboard.writeText(location.href); toast('Lien copié ! 📋', 'ok'); }
         function openHelp() { document.getElementById('mHelp').classList.add('on'); }
@@ -1134,7 +1108,6 @@
             setTimeout(() => t.remove(), 3500);
         }
 
-        // ============ INIT ============
         async function init() {
             await initCloud();
             initSwipe();
@@ -1143,7 +1116,7 @@
             renderVisu();
             updN();
             document.getElementById('loader').classList.add('hide');
-            setInterval(() => { if (blobId && isOnline) chargerCloud(); }, 15000);
+            setInterval(() => { if (binId && isOnline) chargerCloud(); }, 15000);
         }
         
         init();
