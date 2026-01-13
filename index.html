@@ -330,18 +330,6 @@
         }
         .sel-count b { color: var(--accent); font-size: 1.1rem; }
 
-        .visu-link {
-            padding: 10px 12px;
-            background: rgba(255,255,255,0.1);
-            border-radius: 10px;
-            color: white;
-            text-decoration: none;
-            font-size: 0.8rem;
-            font-weight: 800;
-            flex-shrink: 0;
-        }
-        .visu-link:active { background: var(--accent); }
-
         .action-btns {
             display: flex;
             gap: 8px;
@@ -360,153 +348,6 @@
         .btn:active { transform: scale(0.95); }
         .btn-danger { background: #ff3b4a; color: white; }
         .btn-primary { background: var(--accent); color: white; }
-
-        /* ============ VISU 3 MOIS ============ */
-        .visu-page {
-            display: none;
-            position: fixed;
-            inset: 0;
-            z-index: 500;
-            background: var(--bg-primary);
-            flex-direction: column;
-            padding: 6px;
-            gap: 6px;
-        }
-        .visu-page.on { display: flex; }
-
-        .visu-header {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            padding: 10px 12px;
-            background: var(--bg-card);
-            border-radius: 14px;
-        }
-
-        .visu-title { 
-            font-size: 1.2rem; 
-            font-weight: 900; 
-        }
-
-        .visu-close {
-            width: 44px;
-            height: 44px;
-            border-radius: 12px;
-            border: none;
-            background: #ff3b4a;
-            color: white;
-            font-size: 1.4rem;
-            cursor: pointer;
-        }
-
-        .visu-legend {
-            display: flex;
-            flex-wrap: wrap;
-            justify-content: center;
-            gap: 6px;
-            padding: 6px;
-        }
-
-        .visu-leg {
-            padding: 5px 10px;
-            border-radius: 12px;
-            font-size: 0.7rem;
-            font-weight: 800;
-            color: white;
-        }
-        .visu-leg.sabrina { background: var(--sabrina); }
-        .visu-leg.yacine { background: var(--yacine); }
-        .visu-leg.melinda { background: var(--melinda); }
-        .visu-leg.parents { background: var(--parents); }
-        .visu-leg.autres { background: var(--autres); }
-
-        /* GRILLE 3 MOIS VERTICALE */
-        .visu-grid {
-            flex: 1;
-            display: flex;
-            flex-direction: column;
-            gap: 6px;
-            overflow: hidden;
-        }
-
-        .visu-month {
-            flex: 1;
-            background: var(--bg-card);
-            border-radius: 12px;
-            padding: 8px;
-            display: flex;
-            flex-direction: column;
-            min-height: 0;
-        }
-
-        .visu-month-head {
-            text-align: center;
-            font-size: 1rem;
-            font-weight: 900;
-            padding: 4px;
-            background: rgba(255,255,255,0.1);
-            border-radius: 6px;
-            margin-bottom: 4px;
-        }
-
-        .visu-days-head {
-            display: grid;
-            grid-template-columns: repeat(7, 1fr);
-            gap: 2px;
-        }
-
-        .visu-dh {
-            text-align: center;
-            font-size: 0.6rem;
-            font-weight: 800;
-            color: var(--text-muted);
-        }
-
-        .visu-days {
-            flex: 1;
-            display: grid;
-            grid-template-columns: repeat(7, 1fr);
-            gap: 3px;
-            align-content: start;
-        }
-
-        .visu-dc {
-            aspect-ratio: 1;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            background: rgba(255,255,255,0.1);
-            border-radius: 5px;
-            font-size: 0.7rem;
-            font-weight: 800;
-        }
-
-        .visu-dc.empty { background: transparent; }
-        .visu-dc.we { background: rgba(255,255,255,0.05); color: var(--text-muted); }
-        .visu-dc.fer { background: var(--ferie); color: #000; }
-        .visu-dc.vac { 
-            background: repeating-linear-gradient(
-                45deg,
-                rgba(255,255,255,0.1),
-                rgba(255,255,255,0.1) 2px,
-                var(--vac) 2px,
-                var(--vac) 4px
-            );
-        }
-        .visu-dc.res.sabrina { background: var(--sabrina); color: white; }
-        .visu-dc.res.yacine { background: var(--yacine); color: white; }
-        .visu-dc.res.melinda { background: var(--melinda); color: white; }
-        .visu-dc.res.parents { background: var(--parents); color: white; }
-        .visu-dc.res.autres { background: var(--autres); color: white; }
-
-        .visu-nav-bar {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            padding: 8px;
-            background: var(--bg-card);
-            border-radius: 12px;
-        }
 
         /* MODALS */
         .modal-bg {
@@ -714,36 +555,12 @@
                     <span class="sync-txt" id="syncTxt">Connexion...</span>
                 </div>
                 <div class="sel-count"><b id="selN">0</b> sélect.</div>
-                <a href="#" class="visu-link" onclick="openVisu();return false;">📅 3 mois</a>
                 <button class="nav-btn" onclick="navP(1)">▶</button>
             </div>
             <div class="action-btns">
                 <button class="btn btn-danger" onclick="effacer()">Effacer</button>
                 <button class="btn btn-primary" onclick="reserver()">Réserver</button>
             </div>
-        </div>
-    </div>
-
-    <!-- VISU 3 MOIS -->
-    <div class="visu-page" id="visuPage">
-        <div class="visu-header">
-            <div class="visu-title" id="visuTitle">Jan - Mar 2026</div>
-            <button class="visu-close" onclick="closeVisu()">✕</button>
-        </div>
-
-        <div class="visu-legend">
-            <div class="visu-leg sabrina">Sabrina</div>
-            <div class="visu-leg yacine">Yacine</div>
-            <div class="visu-leg melinda">Melinda</div>
-            <div class="visu-leg parents">Parents</div>
-            <div class="visu-leg autres">Autres</div>
-        </div>
-
-        <div class="visu-grid" id="visuGrid"></div>
-
-        <div class="visu-nav-bar">
-            <button class="nav-btn" onclick="visuNav(-3)">◀</button>
-            <button class="nav-btn" onclick="visuNav(3)">▶</button>
         </div>
     </div>
 
@@ -805,7 +622,6 @@
         const FIREBASE_URL = 'https://planning-marseille-default-rtdb.europe-west1.firebasedatabase.app';
         
         const MOIS = ['Janvier','Février','Mars','Avril','Mai','Juin','Juillet','Août','Septembre','Octobre','Novembre','Décembre'];
-        const MOIS_COURT = ['Jan','Fév','Mar','Avr','Mai','Jun','Jul','Aoû','Sep','Oct','Nov','Déc'];
         const GRP = [
             {id:'sabrina', nom:'Sabrina', ini:'SAB'},
             {id:'yacine', nom:'Yacine', ini:'YAC'},
@@ -816,8 +632,6 @@
 
         let currentMonth = new Date().getMonth();
         let currentYear = new Date().getFullYear();
-        let visuMonth = 0;
-        let visuYear = new Date().getFullYear();
         let G = 'sabrina';
         let sel = new Set();
         let data = { reservations: [] };
@@ -899,7 +713,6 @@
                     data = result;
                     if (!data.reservations) data.reservations = [];
                     renderCal();
-                    renderVisu();
                     setSync(true);
                     return true;
                 } else {
@@ -1011,49 +824,6 @@
             document.getElementById('navYear').textContent = currentYear;
         }
 
-        function renderVisu() {
-            const grid = document.getElementById('visuGrid');
-            let h = '';
-            
-            for (let m = 0; m < 3; m++) {
-                const month = (visuMonth + m) % 12;
-                const year = visuYear + Math.floor((visuMonth + m) / 12);
-                const ferSet = feries(year);
-                const vacSet = vacances(year);
-                const daysInMonth = new Date(year, month + 1, 0).getDate();
-                const firstDay = (new Date(year, month, 1).getDay() + 6) % 7;
-                
-                h += `<div class="visu-month"><div class="visu-month-head">${MOIS[month]} ${year}</div>
-                    <div class="visu-days-head"><span class="visu-dh">L</span><span class="visu-dh">M</span><span class="visu-dh">M</span><span class="visu-dh">J</span><span class="visu-dh">V</span><span class="visu-dh">S</span><span class="visu-dh">D</span></div>
-                    <div class="visu-days">`;
-                
-                for (let i = 0; i < firstDay; i++) h += '<div class="visu-dc empty"></div>';
-                
-                for (let d = 1; d <= daysInMonth; d++) {
-                    const dt = new Date(year, month, d);
-                    const ds = fmt(dt);
-                    const dow = (dt.getDay() + 6) % 7;
-                    const isFer = ferSet.has(ds);
-                    const isVac = vacSet.has(ds);
-                    const res = data.reservations.find(r => r.dates && r.dates.includes(ds));
-                    
-                    let cls = ['visu-dc'];
-                    if (res) cls.push('res', res.groupId);
-                    else if (isFer) cls.push('fer');
-                    else if (isVac) cls.push('vac');
-                    else if (dow >= 5) cls.push('we');
-                    
-                    h += `<div class="${cls.join(' ')}">${d}</div>`;
-                }
-                h += '</div></div>';
-            }
-            
-            grid.innerHTML = h;
-            const endMonthIdx = (visuMonth + 2) % 12;
-            const endYear = visuYear + Math.floor((visuMonth + 2) / 12);
-            document.getElementById('visuTitle').textContent = `${MOIS_COURT[visuMonth]} - ${MOIS_COURT[endMonthIdx]} ${endYear}`;
-        }
-
         function updN() { document.getElementById('selN').textContent = sel.size; }
 
         // ============ ACTIONS ============
@@ -1076,15 +846,6 @@
             }, { passive: true });
         }
 
-        function openVisu() { visuMonth = currentMonth; visuYear = currentYear; renderVisu(); document.getElementById('visuPage').classList.add('on'); }
-        function closeVisu() { document.getElementById('visuPage').classList.remove('on'); }
-        function visuNav(dir) {
-            visuMonth += dir;
-            while (visuMonth > 11) { visuMonth -= 12; visuYear++; }
-            while (visuMonth < 0) { visuMonth += 12; visuYear--; }
-            renderVisu();
-        }
-
         async function effacer() {
             if (sel.size === 0) { toast('Sélectionne des dates', 'info'); return; }
             let supprime = false;
@@ -1098,7 +859,7 @@
             data.reservations = data.reservations.filter(r => r.dates && r.dates.length > 0);
             if (supprime) { const ok = await sauvegarder(); if (ok) toast('Supprimé ✓', 'ok'); }
             else toast('Aucune réservation', 'info');
-            sel.clear(); renderCal(); renderVisu(); updN();
+            sel.clear(); renderCal(); updN();
         }
 
         function reserver() {
@@ -1127,7 +888,7 @@
             if (ok) toast('Réservé ✓', 'ok');
             closeM('mRes');
             document.getElementById('customName').value = '';
-            sel.clear(); renderCal(); renderVisu(); updN();
+            sel.clear(); renderCal(); updN();
         }
 
         function openShare() { document.getElementById('shareUrl').value = location.href; document.getElementById('mShare').classList.add('on'); }
@@ -1147,7 +908,6 @@
             initSwipe();
             renderG();
             renderCal();
-            renderVisu();
             updN();
             document.getElementById('loader').classList.add('hide');
             setInterval(() => { if (planningId && isOnline) chargerCloud(); }, 15000);
