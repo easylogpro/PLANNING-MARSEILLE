@@ -4,234 +4,189 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>Planning Familial</title>
-    <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@500;600;700;800&family=JetBrains+Mono:wght@500&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@600;700;800;900&display=swap" rel="stylesheet">
     <style>
         :root {
-            --bg-primary: #1e2a3a;
-            --bg-secondary: #283848;
-            --bg-card: #324558;
-            --bg-calendar: #3a5068;
-            --bg-cell: #4a6278;
-            --bg-hover: #5a7288;
-            --text-primary: #f0f4f8;
-            --text-secondary: #a8c0d8;
-            --text-muted: #7898b8;
-            --border: #4a6278;
+            --bg-primary: #1a2332;
+            --bg-card: #253044;
+            --bg-calendar: #c8d6e8;
+            --bg-cell: #3d5a80;
+            --text-dark: #1a2332;
+            --text-light: #ffffff;
+            --text-muted: #8899aa;
             
-            --sabrina: #ff4d94;
-            --yacine: #00c8ff;
-            --melinda: #c850ff;
-            --parents: #50e878;
-            --autres: #ffb020;
+            --sabrina: #ff1a6c;
+            --yacine: #00b8e6;
+            --melinda: #ff8c00;
+            --parents: #00d45a;
+            --autres: #a0826d;
             
-            --holiday: #a080ff;
-            --ferie: #ff5060;
-            --accent: #50a0ff;
+            --ferie: #ffd700;
+            --vac: #b388ff;
+            --we: #6a7a8a;
+            --accent: #2980d9;
         }
 
-        * { margin: 0; padding: 0; box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
-        html, body { height: 100%; overflow: hidden; }
+        * { margin: 0; padding: 0; box-sizing: border-box; -webkit-tap-highlight-color: transparent; user-select: none; }
+        html, body { height: 100%; overflow: hidden; touch-action: pan-y; }
 
         body {
             font-family: 'Nunito', sans-serif;
             background: var(--bg-primary);
-            color: var(--text-primary);
-        }
-
-        .bg-gradient {
-            position: fixed;
-            inset: 0;
-            z-index: 0;
-            background: 
-                radial-gradient(ellipse at 20% 20%, rgba(255,77,148,0.08) 0%, transparent 50%),
-                radial-gradient(ellipse at 80% 30%, rgba(0,200,255,0.08) 0%, transparent 50%);
+            color: var(--text-light);
         }
 
         .app {
-            position: relative;
-            z-index: 1;
             height: 100vh;
             height: 100dvh;
             display: flex;
             flex-direction: column;
             padding: 8px;
-            gap: 6px;
+            gap: 8px;
             overflow: hidden;
         }
 
-        /* BARRE NAV */
-        .top-bar {
+        /* HEADER - TITRE CENTRÉ PLEINE LARGEUR */
+        .header {
             display: flex;
             align-items: center;
-            gap: 8px;
-            padding: 8px 10px;
+            padding: 10px 12px;
             background: var(--bg-card);
-            border-radius: 12px;
-            border: 1px solid var(--border);
+            border-radius: 16px;
         }
 
-        .nav-btn {
-            width: 40px;
-            height: 40px;
-            border-radius: 10px;
-            border: none;
-            background: var(--bg-hover);
-            color: var(--text-primary);
-            font-size: 1.1rem;
-            font-weight: 700;
-            cursor: pointer;
-            flex-shrink: 0;
-        }
-
-        .nav-btn:active { transform: scale(0.92); background: var(--accent); }
-
-        .nav-center { flex: 1; text-align: center; }
-        .nav-month { font-size: 1.1rem; font-weight: 800; }
-        .nav-year { font-size: 0.75rem; color: var(--text-muted); }
-
-        .top-btns { display: flex; gap: 5px; flex-shrink: 0; }
-
-        .icon-btn {
-            width: 40px;
-            height: 40px;
-            border-radius: 10px;
-            border: 1px solid var(--border);
-            background: var(--bg-secondary);
-            color: var(--text-secondary);
-            font-size: 1rem;
-            cursor: pointer;
-        }
-
-        .icon-btn:active { transform: scale(0.92); background: var(--accent); color: white; }
-
-        /* BARRE GROUPES + BOUTONS */
-        .control-bar {
-            display: flex;
-            align-items: center;
-            gap: 6px;
-            padding: 8px;
-            background: var(--bg-card);
-            border-radius: 12px;
-            border: 1px solid var(--border);
-        }
-
-        .groups-scroll {
+        .month-display {
             flex: 1;
-            display: flex;
-            gap: 5px;
-            overflow-x: auto;
-            -webkit-overflow-scrolling: touch;
+            text-align: center;
+        }
+        .month-name {
+            font-size: 3rem;
+            font-weight: 900;
+            letter-spacing: 6px;
+        }
+        .month-year {
+            font-size: 1rem;
+            color: var(--text-muted);
+            font-weight: 700;
         }
 
-        .groups-scroll::-webkit-scrollbar { display: none; }
+        .header-btns { display: flex; gap: 8px; }
+        .icon-btn {
+            width: 48px;
+            height: 48px;
+            border-radius: 14px;
+            border: none;
+            background: rgba(255,255,255,0.1);
+            color: white;
+            font-size: 1.4rem;
+            cursor: pointer;
+        }
+        .icon-btn:active { background: var(--accent); transform: scale(0.95); }
+
+        /* GROUPES - PLEINE LARGEUR */
+        .groups {
+            display: flex;
+            gap: 6px;
+            padding: 10px;
+            background: var(--bg-card);
+            border-radius: 16px;
+        }
 
         .grp {
-            flex-shrink: 0;
-            padding: 8px 12px;
-            border-radius: 20px;
+            flex: 1;
+            padding: 18px 10px;
+            border-radius: 25px;
             cursor: pointer;
-            font-size: 0.75rem;
-            font-weight: 700;
-            white-space: nowrap;
-            border: 2px solid;
-            transition: all 0.2s;
+            font-size: 1.3rem;
+            font-weight: 800;
+            text-align: center;
+            border: 3px solid;
         }
 
         .grp:active { transform: scale(0.95); }
 
-        .grp.sabrina { background: rgba(255,77,148,0.15); color: var(--sabrina); border-color: var(--sabrina); }
-        .grp.yacine { background: rgba(0,200,255,0.15); color: var(--yacine); border-color: var(--yacine); }
-        .grp.melinda { background: rgba(200,80,255,0.15); color: var(--melinda); border-color: var(--melinda); }
-        .grp.parents { background: rgba(80,232,120,0.15); color: var(--parents); border-color: var(--parents); }
-        .grp.autres { background: rgba(255,176,32,0.15); color: var(--autres); border-color: var(--autres); }
+        .grp.sabrina { background: rgba(255,26,108,0.15); color: var(--sabrina); border-color: var(--sabrina); }
+        .grp.yacine { background: rgba(0,184,230,0.15); color: var(--yacine); border-color: var(--yacine); }
+        .grp.melinda { background: rgba(255,107,53,0.15); color: var(--melinda); border-color: var(--melinda); }
+        .grp.parents { background: rgba(0,212,90,0.15); color: var(--parents); border-color: var(--parents); }
+        .grp.autres { background: rgba(255,204,0,0.15); color: var(--autres); border-color: var(--autres); }
 
-        /* EFFET DYNAMIQUE GROUPE SÉLECTIONNÉ */
         .grp.on {
-            animation: pulseGroup 1.5s ease-in-out infinite;
+            animation: pulseGlow 1.2s ease-in-out infinite;
             transform: scale(1.05);
         }
 
-        .grp.sabrina.on { background: var(--sabrina); color: white; box-shadow: 0 0 20px var(--sabrina), 0 0 40px rgba(255,77,148,0.3); }
-        .grp.yacine.on { background: var(--yacine); color: #000; box-shadow: 0 0 20px var(--yacine), 0 0 40px rgba(0,200,255,0.3); }
-        .grp.melinda.on { background: var(--melinda); color: white; box-shadow: 0 0 20px var(--melinda), 0 0 40px rgba(200,80,255,0.3); }
-        .grp.parents.on { background: var(--parents); color: #000; box-shadow: 0 0 20px var(--parents), 0 0 40px rgba(80,232,120,0.3); }
-        .grp.autres.on { background: var(--autres); color: #000; box-shadow: 0 0 20px var(--autres), 0 0 40px rgba(255,176,32,0.3); }
+        .grp.sabrina.on { background: var(--sabrina); color: white; box-shadow: 0 0 30px var(--sabrina); }
+        .grp.yacine.on { background: var(--yacine); color: white; box-shadow: 0 0 30px var(--yacine); }
+        .grp.melinda.on { background: var(--melinda); color: white; box-shadow: 0 0 30px var(--melinda); }
+        .grp.parents.on { background: var(--parents); color: white; box-shadow: 0 0 30px var(--parents); }
+        .grp.autres.on { background: var(--autres); color: white; box-shadow: 0 0 30px var(--autres); }
 
-        @keyframes pulseGroup {
-            0%, 100% { box-shadow: 0 0 15px currentColor, 0 0 30px rgba(255,255,255,0.1); }
-            50% { box-shadow: 0 0 25px currentColor, 0 0 50px rgba(255,255,255,0.2); }
+        @keyframes pulseGlow {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.8; }
         }
 
-        .action-btns {
+        /* CALENDRIER - FOND CLAIR AUTOUR DES CASES */
+        .cal-wrap {
+            flex: 1;
+            background: var(--bg-calendar);
+            border-radius: 18px;
+            padding: 12px;
             display: flex;
-            gap: 5px;
-            flex-shrink: 0;
+            flex-direction: column;
+            overflow: hidden;
+            min-height: 0;
         }
-
-        .btn {
-            padding: 8px 12px;
-            border-radius: 10px;
-            border: none;
-            font-family: 'Nunito', sans-serif;
-            font-size: 0.75rem;
-            font-weight: 700;
-            cursor: pointer;
-            white-space: nowrap;
-        }
-
-        .btn:active { transform: scale(0.95); }
-        .btn-danger { background: var(--ferie); color: white; }
-        .btn-primary { background: var(--accent); color: white; }
 
         /* LÉGENDE */
         .legend {
             display: flex;
             justify-content: center;
-            gap: 12px;
-            padding: 4px;
-            font-size: 0.6rem;
-            color: var(--text-muted);
+            gap: 20px;
+            padding: 8px;
+            font-size: 0.85rem;
+            font-weight: 800;
+            color: var(--text-dark);
         }
 
-        .leg { display: flex; align-items: center; gap: 3px; }
-        .leg-box { width: 10px; height: 10px; border-radius: 2px; }
+        .leg { display: flex; align-items: center; gap: 6px; }
+        .leg-box { width: 16px; height: 16px; border-radius: 5px; }
         .leg-box.fer { background: var(--ferie); }
-        .leg-box.vac { border: 2px solid var(--holiday); }
-        .leg-box.we { background: var(--bg-secondary); }
-
-        /* CALENDRIER 1 MOIS */
-        .cal-wrap {
-            flex: 1;
-            background: var(--bg-calendar);
-            border-radius: 14px;
-            border: 1px solid var(--border);
-            padding: 10px;
-            display: flex;
-            flex-direction: column;
-            overflow: hidden;
-        }
+        .leg-box.vac { background: #5a7a9a; border: none; }
+        .leg-box.we { background: var(--we); }
 
         .days-head {
             display: grid;
             grid-template-columns: repeat(7, 1fr);
-            gap: 3px;
-            margin-bottom: 6px;
+            gap: 5px;
+            margin-bottom: 8px;
         }
 
         .dh {
             text-align: center;
-            font-size: 0.7rem;
-            font-weight: 700;
-            color: var(--text-muted);
-            padding: 4px 0;
+            font-size: 0.95rem;
+            font-weight: 900;
+            color: var(--text-dark);
+            padding: 6px 0;
+        }
+
+        /* CONTAINER SWIPE */
+        .swipe-container {
+            flex: 1;
+            position: relative;
+            overflow: hidden;
+            touch-action: pan-x;
         }
 
         .days {
-            flex: 1;
+            position: absolute;
+            inset: 0;
             display: grid;
             grid-template-columns: repeat(7, 1fr);
             grid-template-rows: repeat(6, 1fr);
-            gap: 3px;
+            gap: 5px;
+            transition: transform 0.3s ease;
         }
 
         /* CELLULE JOUR */
@@ -241,123 +196,154 @@
             align-items: center;
             justify-content: center;
             background: var(--bg-cell);
-            border-radius: 6px;
-            font-family: 'JetBrains Mono', monospace;
+            border-radius: 12px;
             cursor: pointer;
             position: relative;
-            border: 2px solid transparent;
-            padding: 2px;
-            gap: 0px;
+            border: 3px solid transparent;
+            gap: 2px;
         }
 
         .dc:active { transform: scale(0.92); }
         .dc.empty { background: transparent; cursor: default; }
         .dc.empty:active { transform: none; }
 
-        /* Label en haut (Férié/Vacances) - toujours visible */
         .dc .label {
-            font-size: 0.38rem;
-            font-weight: 800;
-            line-height: 1;
+            font-size: 0.55rem;
+            font-weight: 900;
+            color: white;
             text-transform: uppercase;
-            letter-spacing: 0.3px;
-            color: rgba(255,255,255,0.9);
-        }
-
-        /* Numéro du jour */
-        .dc .num { 
-            font-size: 0.95rem; 
-            font-weight: 700; 
-            line-height: 1; 
-        }
-
-        /* Initiales réservation en bas */
-        .dc .ini { 
-            font-size: 0.42rem; 
-            font-weight: 700; 
             line-height: 1;
         }
 
-        .dc.we { background: var(--bg-secondary); }
-        .dc.we .num { color: var(--text-muted); }
-
-        /* Férié SANS réservation */
-        .dc.fer { background: var(--ferie); }
-        .dc.fer .num { color: #fff; }
-
-        /* Vacances SANS réservation */
-        .dc.vac { border-color: var(--holiday); background: rgba(160,128,255,0.2); }
-        .dc.vac .num { color: var(--text-primary); }
-        .dc.vac .label { color: var(--holiday); }
-
-        /* Sélection */
-        .dc.sel {
-            background: rgba(80,160,255,0.5) !important;
-            border-color: var(--accent) !important;
-            box-shadow: 0 0 8px var(--accent);
+        .dc .num { 
+            font-size: 1.4rem; 
+            font-weight: 900; 
+            line-height: 1;
+            color: white;
         }
-        .dc.sel .num { color: #fff; }
-        .dc.sel .label { color: #fff; }
 
-        /* RÉSERVATION = COULEUR GROUPE COMPLÈTE */
-        .dc.res { border-color: transparent !important; }
-        .dc.res .num, .dc.res .ini, .dc.res .label { color: #fff; }
-        
+        .dc .ini { 
+            font-size: 0.7rem; 
+            font-weight: 900; 
+            line-height: 1;
+            color: white;
+        }
+
+        .dc.we { background: var(--we); }
+        .dc.fer { background: var(--ferie); }
+        .dc.fer .num, .dc.fer .label { color: #000; }
+        .dc.vac { background: #5a7a9a; border: none; }
+
+        .dc.sel {
+            border-color: var(--accent) !important;
+            box-shadow: 0 0 15px var(--accent);
+        }
+
         .dc.res.sabrina { background: var(--sabrina) !important; }
         .dc.res.yacine { background: var(--yacine) !important; }
-        .dc.res.yacine .num, .dc.res.yacine .ini, .dc.res.yacine .label { color: #000; }
         .dc.res.melinda { background: var(--melinda) !important; }
         .dc.res.parents { background: var(--parents) !important; }
-        .dc.res.parents .num, .dc.res.parents .ini, .dc.res.parents .label { color: #000; }
         .dc.res.autres { background: var(--autres) !important; }
-        .dc.res.autres .num, .dc.res.autres .ini, .dc.res.autres .label { color: #000; }
 
-        /* BARRE STATUT + LIEN VISU */
-        .status-bar {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            padding: 6px 10px;
-            background: var(--bg-card);
-            border-radius: 10px;
-            border: 1px solid var(--border);
+        .swipe-hint {
+            text-align: center;
             font-size: 0.7rem;
+            color: var(--text-dark);
+            padding: 4px;
+            opacity: 0.7;
         }
 
-        .sync-info {
+        /* BARRE DU BAS */
+        .bottom-bar {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+            padding: 12px;
+            background: var(--bg-card);
+            border-radius: 16px;
+        }
+
+        .bottom-row {
             display: flex;
             align-items: center;
-            gap: 5px;
-            color: var(--text-muted);
+            gap: 10px;
+        }
+
+        .nav-btn {
+            width: 50px;
+            height: 50px;
+            border-radius: 14px;
+            border: none;
+            background: var(--accent);
+            color: white;
+            font-size: 1.5rem;
+            font-weight: 900;
+            cursor: pointer;
+        }
+        .nav-btn:active { transform: scale(0.92); opacity: 0.8; }
+
+        .status {
+            flex: 1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
         }
 
         .sync-dot {
-            width: 7px;
-            height: 7px;
+            width: 12px;
+            height: 12px;
             border-radius: 50%;
             background: var(--parents);
             animation: pulse 2s infinite;
         }
-
         .sync-dot.off { background: var(--ferie); animation: none; }
 
         @keyframes pulse { 0%,100%{opacity:1}50%{opacity:0.4} }
 
-        .sel-count { color: var(--text-secondary); }
-        .sel-count b { color: var(--accent); }
-
-        .visu-link {
-            color: var(--accent);
-            text-decoration: none;
+        .sync-txt {
+            font-size: 0.9rem;
             font-weight: 700;
-            padding: 4px 8px;
-            background: rgba(80,160,255,0.15);
-            border-radius: 8px;
+            color: var(--text-muted);
         }
 
-        .visu-link:active { background: rgba(80,160,255,0.3); }
+        .sel-count {
+            font-size: 1rem;
+            font-weight: 800;
+        }
+        .sel-count b { color: var(--accent); font-size: 1.2rem; }
 
-        /* ============ PAGE VISU 3 MOIS ============ */
+        .visu-link {
+            padding: 12px 16px;
+            background: rgba(255,255,255,0.1);
+            border-radius: 12px;
+            color: white;
+            text-decoration: none;
+            font-size: 0.9rem;
+            font-weight: 800;
+        }
+        .visu-link:active { background: var(--accent); }
+
+        .action-btns {
+            display: flex;
+            gap: 10px;
+        }
+
+        .btn {
+            flex: 1;
+            padding: 18px 20px;
+            border-radius: 14px;
+            border: none;
+            font-family: 'Nunito', sans-serif;
+            font-size: 1.3rem;
+            font-weight: 900;
+            cursor: pointer;
+        }
+        .btn:active { transform: scale(0.95); }
+        .btn-danger { background: #ff3b4a; color: white; }
+        .btn-primary { background: var(--accent); color: white; }
+
+        /* ============ VISU 6 MOIS - ÉLARGI ============ */
         .visu-page {
             display: none;
             position: fixed;
@@ -365,42 +351,33 @@
             z-index: 500;
             background: var(--bg-primary);
             flex-direction: column;
-            padding: 8px;
-            gap: 8px;
-            overflow: hidden;
+            padding: 6px;
+            gap: 6px;
         }
-
         .visu-page.on { display: flex; }
 
         .visu-header {
             display: flex;
             align-items: center;
             justify-content: space-between;
-            padding: 10px 12px;
+            padding: 10px 14px;
             background: var(--bg-card);
-            border-radius: 12px;
-            border: 1px solid var(--border);
+            border-radius: 14px;
         }
 
-        .visu-title {
-            font-size: 1rem;
-            font-weight: 800;
-        }
-
-        .visu-nav {
-            display: flex;
-            align-items: center;
-            gap: 8px;
+        .visu-title { 
+            font-size: 1.8rem; 
+            font-weight: 900; 
         }
 
         .visu-close {
-            width: 36px;
-            height: 36px;
-            border-radius: 10px;
+            width: 48px;
+            height: 48px;
+            border-radius: 14px;
             border: none;
             background: var(--ferie);
             color: white;
-            font-size: 1.2rem;
+            font-size: 1.5rem;
             cursor: pointer;
         }
 
@@ -410,69 +387,69 @@
             justify-content: center;
             gap: 6px;
             padding: 6px;
-            font-size: 0.55rem;
         }
 
         .visu-leg {
-            display: flex;
-            align-items: center;
-            gap: 3px;
-            padding: 3px 6px;
-            border-radius: 8px;
-            font-weight: 700;
+            padding: 8px 16px;
+            border-radius: 14px;
+            font-size: 1rem;
+            font-weight: 800;
+            color: white;
         }
+        .visu-leg.sabrina { background: var(--sabrina); }
+        .visu-leg.yacine { background: var(--yacine); }
+        .visu-leg.melinda { background: var(--melinda); }
+        .visu-leg.parents { background: var(--parents); }
+        .visu-leg.autres { background: var(--autres); }
 
-        .visu-leg.sabrina { background: var(--sabrina); color: white; }
-        .visu-leg.yacine { background: var(--yacine); color: #000; }
-        .visu-leg.melinda { background: var(--melinda); color: white; }
-        .visu-leg.parents { background: var(--parents); color: #000; }
-        .visu-leg.autres { background: var(--autres); color: #000; }
-
+        /* GRILLE 6 MOIS - 2 COLONNES PLEINE LARGEUR */
         .visu-grid {
             flex: 1;
             display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 6px;
-            overflow: auto;
-            -webkit-overflow-scrolling: touch;
+            grid-template-columns: 1fr 1fr;
+            grid-template-rows: repeat(3, 1fr);
+            gap: 8px;
+            overflow: hidden;
         }
 
         .visu-month {
             background: var(--bg-card);
-            border-radius: 10px;
-            padding: 6px;
+            border-radius: 12px;
+            padding: 12px;
             display: flex;
             flex-direction: column;
+            min-height: 0;
         }
 
         .visu-month-head {
             text-align: center;
-            font-size: 0.7rem;
-            font-weight: 700;
-            padding: 4px;
-            background: var(--bg-hover);
-            border-radius: 6px;
-            margin-bottom: 4px;
+            font-size: 1.5rem;
+            font-weight: 900;
+            padding: 10px;
+            background: rgba(255,255,255,0.1);
+            border-radius: 8px;
+            margin-bottom: 8px;
         }
 
         .visu-days-head {
             display: grid;
             grid-template-columns: repeat(7, 1fr);
-            gap: 1px;
-            margin-bottom: 2px;
+            gap: 2px;
         }
 
         .visu-dh {
             text-align: center;
-            font-size: 0.4rem;
-            font-weight: 700;
+            font-size: 0.8rem;
+            font-weight: 800;
             color: var(--text-muted);
         }
 
         .visu-days {
+            flex: 1;
             display: grid;
             grid-template-columns: repeat(7, 1fr);
-            gap: 1px;
+            gap: 5px;
+            align-content: start;
         }
 
         .visu-dc {
@@ -480,48 +457,51 @@
             display: flex;
             align-items: center;
             justify-content: center;
-            background: var(--bg-cell);
-            border-radius: 3px;
-            font-family: 'JetBrains Mono', monospace;
-            font-size: 0.45rem;
-            font-weight: 600;
+            background: rgba(255,255,255,0.1);
+            border-radius: 6px;
+            font-size: 1rem;
+            font-weight: 800;
         }
 
         .visu-dc.empty { background: transparent; }
-        .visu-dc.we { background: var(--bg-secondary); color: var(--text-muted); }
-        .visu-dc.fer { background: var(--ferie); color: white; }
-        .visu-dc.vac { border: 1px solid var(--holiday); }
+        .visu-dc.we { background: rgba(255,255,255,0.05); color: var(--text-muted); }
+        .visu-dc.fer { background: var(--ferie); color: #000; }
+        .visu-dc.vac { background: rgba(255,255,255,0.25); }
         .visu-dc.res.sabrina { background: var(--sabrina); color: white; }
-        .visu-dc.res.yacine { background: var(--yacine); color: #000; }
+        .visu-dc.res.yacine { background: var(--yacine); color: white; }
         .visu-dc.res.melinda { background: var(--melinda); color: white; }
-        .visu-dc.res.parents { background: var(--parents); color: #000; }
-        .visu-dc.res.autres { background: var(--autres); color: #000; }
+        .visu-dc.res.parents { background: var(--parents); color: white; }
+        .visu-dc.res.autres { background: var(--autres); color: white; }
+
+        .visu-nav-bar {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 8px;
+            background: var(--bg-card);
+            border-radius: 12px;
+        }
 
         /* MODALS */
         .modal-bg {
             position: fixed;
             inset: 0;
-            background: rgba(0,0,0,0.7);
-            backdrop-filter: blur(5px);
+            background: rgba(0,0,0,0.85);
             display: none;
             align-items: center;
             justify-content: center;
             z-index: 1000;
             padding: 16px;
         }
-
         .modal-bg.on { display: flex; }
 
         .modal {
             background: var(--bg-card);
-            border-radius: 14px;
-            padding: 16px;
+            border-radius: 20px;
+            padding: 24px;
             width: 100%;
-            max-width: 320px;
-            max-height: 75vh;
-            overflow-y: auto;
+            max-width: 360px;
             animation: popIn 0.2s ease;
-            border: 1px solid var(--border);
         }
 
         @keyframes popIn { from{transform:scale(0.9);opacity:0}to{transform:scale(1);opacity:1} }
@@ -530,112 +510,105 @@
             display: flex;
             justify-content: space-between;
             align-items: center;
-            margin-bottom: 12px;
+            margin-bottom: 18px;
         }
-
-        .modal-title { font-size: 0.95rem; font-weight: 700; }
-
+        .modal-title { font-size: 1.2rem; font-weight: 900; }
         .modal-x {
-            width: 28px;
-            height: 28px;
+            width: 36px;
+            height: 36px;
             border-radius: 50%;
             border: none;
-            background: var(--bg-hover);
-            color: var(--text-secondary);
-            font-size: 1rem;
+            background: rgba(255,255,255,0.1);
+            color: white;
+            font-size: 1.3rem;
             cursor: pointer;
         }
 
         .group-badge {
             display: inline-block;
-            padding: 6px 14px;
-            border-radius: 16px;
-            font-size: 0.8rem;
-            font-weight: 700;
-            margin-bottom: 12px;
+            padding: 10px 22px;
+            border-radius: 25px;
+            font-size: 1.1rem;
+            font-weight: 900;
+            margin-bottom: 16px;
+            color: white;
         }
+        .group-badge.sabrina { background: var(--sabrina); }
+        .group-badge.yacine { background: var(--yacine); }
+        .group-badge.melinda { background: var(--melinda); }
+        .group-badge.parents { background: var(--parents); }
+        .group-badge.autres { background: var(--autres); }
 
-        .group-badge.sabrina { background: var(--sabrina); color: white; }
-        .group-badge.yacine { background: var(--yacine); color: #000; }
-        .group-badge.melinda { background: var(--melinda); color: white; }
-        .group-badge.parents { background: var(--parents); color: #000; }
-        .group-badge.autres { background: var(--autres); color: #000; }
-
-        .fg { margin-bottom: 10px; }
-        .fl { display: block; font-size: 0.7rem; font-weight: 700; color: var(--text-secondary); margin-bottom: 4px; }
-
+        .fg { margin-bottom: 14px; }
+        .fl { display: block; font-size: 0.9rem; font-weight: 800; margin-bottom: 8px; color: var(--text-muted); }
         .fi {
             width: 100%;
-            padding: 8px 10px;
-            background: var(--bg-secondary);
-            border: 1px solid var(--border);
-            border-radius: 6px;
-            color: var(--text-primary);
+            padding: 14px;
+            background: rgba(255,255,255,0.1);
+            border: 2px solid transparent;
+            border-radius: 12px;
+            color: white;
             font-family: 'Nunito', sans-serif;
-            font-size: 0.85rem;
+            font-size: 1.1rem;
         }
-
         .fi:focus { outline: none; border-color: var(--accent); }
 
         .dates-box {
-            background: var(--bg-secondary);
-            border-radius: 6px;
-            padding: 6px;
+            background: rgba(255,255,255,0.1);
+            border-radius: 12px;
+            padding: 12px;
             display: flex;
             flex-wrap: wrap;
-            gap: 4px;
-            max-height: 60px;
+            gap: 8px;
+            max-height: 100px;
             overflow-y: auto;
         }
 
         .date-chip {
-            padding: 3px 6px;
-            background: var(--bg-hover);
-            border-radius: 8px;
-            font-size: 0.65rem;
-            font-weight: 600;
+            padding: 6px 12px;
+            background: rgba(255,255,255,0.15);
+            border-radius: 20px;
+            font-size: 0.9rem;
+            font-weight: 800;
         }
 
-        .modal-btns { display: flex; gap: 6px; margin-top: 12px; }
-        .modal-btns .btn { flex: 1; text-align: center; padding: 10px; }
+        .modal-btns { display: flex; gap: 12px; margin-top: 18px; }
+        .modal-btns .btn { flex: 1; }
 
         .share-url {
             width: 100%;
-            padding: 8px;
-            background: var(--bg-primary);
-            border: 1px solid var(--border);
-            border-radius: 6px;
+            padding: 14px;
+            background: rgba(0,0,0,0.3);
+            border: none;
+            border-radius: 12px;
             color: var(--accent);
-            font-size: 0.65rem;
-            font-family: 'JetBrains Mono', monospace;
-            margin: 8px 0;
+            font-size: 0.8rem;
+            font-family: monospace;
+            margin: 14px 0;
             text-align: center;
         }
 
         .help-text {
-            font-size: 0.7rem;
-            color: var(--text-secondary);
-            line-height: 1.4;
-            margin-bottom: 8px;
+            font-size: 0.95rem;
+            color: var(--text-muted);
+            line-height: 1.6;
+            margin-bottom: 12px;
         }
+        .help-text b { color: white; }
 
-        .help-text b { color: var(--text-primary); }
-
-        .toasts { position: fixed; top: 50px; left: 8px; right: 8px; z-index: 2000; }
-
+        .toasts { position: fixed; top: 70px; left: 12px; right: 12px; z-index: 2000; }
         .toast {
-            padding: 8px 12px;
+            padding: 14px 18px;
             background: var(--bg-card);
-            border-radius: 8px;
-            margin-bottom: 5px;
-            font-size: 0.75rem;
-            border: 1px solid var(--border);
+            border-radius: 14px;
+            margin-bottom: 10px;
+            font-size: 1rem;
+            font-weight: 800;
             animation: slideDown 0.2s ease;
         }
-
-        .toast.ok { border-left: 3px solid var(--parents); }
-        .toast.err { border-left: 3px solid var(--ferie); }
-        .toast.info { border-left: 3px solid var(--accent); }
+        .toast.ok { border-left: 5px solid var(--parents); }
+        .toast.err { border-left: 5px solid var(--ferie); }
+        .toast.info { border-left: 5px solid var(--accent); }
 
         @keyframes slideDown { from{opacity:0;transform:translateY(-10px)}to{opacity:1;transform:translateY(0)} }
 
@@ -647,21 +620,19 @@
             flex-direction: column;
             align-items: center;
             justify-content: center;
-            gap: 12px;
+            gap: 18px;
             z-index: 3000;
         }
-
         .loading.hide { display: none; }
 
         .spinner {
-            width: 36px;
-            height: 36px;
-            border: 3px solid var(--border);
+            width: 50px;
+            height: 50px;
+            border: 5px solid rgba(255,255,255,0.2);
             border-top-color: var(--accent);
             border-radius: 50%;
             animation: spin 0.7s linear infinite;
         }
-
         @keyframes spin { to{transform:rotate(360deg)} }
 
         .custom-row { display: none; }
@@ -669,43 +640,35 @@
     </style>
 </head>
 <body>
-    <div class="bg-gradient"></div>
-
     <div class="loading" id="loader">
         <div class="spinner"></div>
-        <span style="color:var(--text-secondary);font-size:0.8rem">Connexion...</span>
+        <span style="color:var(--text-muted);font-size:1rem">Connexion...</span>
     </div>
 
     <!-- PAGE PRINCIPALE -->
     <div class="app">
-        <div class="top-bar">
-            <button class="nav-btn" onclick="navP(-1)">◀</button>
-            <div class="nav-center">
-                <div class="nav-month" id="navMonth">Janvier</div>
-                <div class="nav-year" id="navYear">2025</div>
+        <!-- HEADER -->
+        <div class="header">
+            <div class="month-display">
+                <div class="month-name" id="navMonth">Janvier</div>
+                <div class="month-year" id="navYear">2026</div>
             </div>
-            <button class="nav-btn" onclick="navP(1)">▶</button>
-            <div class="top-btns">
+            <div class="header-btns">
                 <button class="icon-btn" onclick="openHelp()">❓</button>
                 <button class="icon-btn" onclick="openShare()">🔗</button>
             </div>
         </div>
 
-        <div class="control-bar">
-            <div class="groups-scroll" id="grps"></div>
-            <div class="action-btns">
-                <button class="btn btn-danger" onclick="effacer()">Effacer</button>
-                <button class="btn btn-primary" onclick="reserver()">Réserver</button>
-            </div>
-        </div>
+        <!-- GROUPES - PLEINE LARGEUR -->
+        <div class="groups" id="grps"></div>
 
-        <div class="legend">
-            <div class="leg"><div class="leg-box fer"></div><span>Férié</span></div>
-            <div class="leg"><div class="leg-box vac"></div><span>Vacances</span></div>
-            <div class="leg"><div class="leg-box we"></div><span>WE</span></div>
-        </div>
-
+        <!-- CALENDRIER -->
         <div class="cal-wrap">
+            <div class="legend">
+                <div class="leg"><div class="leg-box fer"></div><span>Férié</span></div>
+                <div class="leg"><div class="leg-box vac"></div><span>Vacances</span></div>
+                <div class="leg"><div class="leg-box we"></div><span>WE</span></div>
+            </div>
             <div class="days-head">
                 <span class="dh">Lun</span>
                 <span class="dh">Mar</span>
@@ -715,30 +678,36 @@
                 <span class="dh">Sam</span>
                 <span class="dh">Dim</span>
             </div>
-            <div class="days" id="daysGrid"></div>
+            <div class="swipe-container" id="swipeContainer">
+                <div class="days" id="daysGrid"></div>
+            </div>
+            <div class="swipe-hint">← Balayer pour changer de mois →</div>
         </div>
 
-        <div class="status-bar">
-            <div class="sync-info">
-                <div class="sync-dot" id="syncDot"></div>
-                <span id="syncTxt">Cloud</span>
+        <!-- BARRE DU BAS -->
+        <div class="bottom-bar">
+            <div class="bottom-row">
+                <button class="nav-btn" onclick="navP(-1)">◀</button>
+                <div class="status">
+                    <div class="sync-dot" id="syncDot"></div>
+                    <span class="sync-txt" id="syncTxt">Connexion...</span>
+                </div>
+                <div class="sel-count"><b id="selN">0</b> sélect.</div>
+                <a href="#" class="visu-link" onclick="openVisu();return false;">📅 6 mois</a>
+                <button class="nav-btn" onclick="navP(1)">▶</button>
             </div>
-            <div class="sel-count"><b id="selN">0</b> sélect.</div>
-            <a href="#" class="visu-link" onclick="openVisu();return false;">📅 Visu 3 mois</a>
+            <div class="action-btns">
+                <button class="btn btn-danger" onclick="effacer()">Effacer</button>
+                <button class="btn btn-primary" onclick="reserver()">Réserver</button>
+            </div>
         </div>
     </div>
 
-    <!-- PAGE VISU 3 MOIS -->
+    <!-- PAGE VISU 6 MOIS -->
     <div class="visu-page" id="visuPage">
         <div class="visu-header">
-            <div class="visu-nav">
-                <button class="nav-btn" onclick="visuNav(-3)">◀</button>
-            </div>
-            <div class="visu-title" id="visuTitle">Jan - Mar 2025</div>
-            <div class="visu-nav">
-                <button class="nav-btn" onclick="visuNav(3)">▶</button>
-                <button class="visu-close" onclick="closeVisu()">✕</button>
-            </div>
+            <div class="visu-title" id="visuTitle">Jan - Jun 2026</div>
+            <button class="visu-close" onclick="closeVisu()">✕</button>
         </div>
 
         <div class="visu-legend">
@@ -750,13 +719,18 @@
         </div>
 
         <div class="visu-grid" id="visuGrid"></div>
+
+        <div class="visu-nav-bar">
+            <button class="nav-btn" onclick="visuNav(-6)">◀ 6 mois</button>
+            <button class="nav-btn" onclick="visuNav(6)">6 mois ▶</button>
+        </div>
     </div>
 
     <!-- MODALS -->
     <div class="modal-bg" id="mRes" onclick="if(event.target===this)closeM('mRes')">
         <div class="modal">
             <div class="modal-head">
-                <h2 class="modal-title">Nouvelle réservation</h2>
+                <h2 class="modal-title">Réservation</h2>
                 <button class="modal-x" onclick="closeM('mRes')">×</button>
             </div>
             <div class="group-badge" id="groupBadge">Sabrina</div>
@@ -765,11 +739,11 @@
                 <input type="text" class="fi" id="customName" placeholder="Prénom...">
             </div>
             <div class="fg">
-                <label class="fl">Dates</label>
+                <label class="fl">Dates sélectionnées</label>
                 <div class="dates-box" id="datesBox"></div>
             </div>
             <div class="modal-btns">
-                <button class="btn btn-primary" onclick="confirmerRes()" style="width:100%">Confirmer</button>
+                <button class="btn btn-primary" onclick="confirmerRes()">Confirmer</button>
             </div>
         </div>
     </div>
@@ -780,10 +754,10 @@
                 <h2 class="modal-title">🔗 Partager</h2>
                 <button class="modal-x" onclick="closeM('mShare')">×</button>
             </div>
-            <p class="help-text"><b>Envoyez ce lien à la famille !</b></p>
+            <p class="help-text"><b>Envoie ce lien à la famille !</b><br>Tous verront le même planning.</p>
             <input type="text" class="share-url" id="shareUrl" readonly onclick="this.select()">
             <div class="modal-btns">
-                <button class="btn btn-primary" onclick="copyUrl()" style="width:100%">📋 Copier</button>
+                <button class="btn btn-primary" onclick="copyUrl()">📋 Copier le lien</button>
             </div>
         </div>
     </div>
@@ -794,20 +768,23 @@
                 <h2 class="modal-title">❓ Aide</h2>
                 <button class="modal-x" onclick="closeM('mHelp')">×</button>
             </div>
-            <p class="help-text" style="background:var(--bg-secondary);padding:10px;border-radius:6px">
-                <b style="color:var(--parents)">✓ 100% automatique !</b><br>
-                Rien à configurer. Partage le lien 🔗
+            <p class="help-text" style="background:rgba(0,212,90,0.2);padding:14px;border-radius:12px;margin-bottom:16px">
+                <b style="color:var(--parents)">✓ Sauvegarde 100% en ligne</b><br>
+                JSONBlob.com = gratuit, <b>PAS DE COMPTE</b> !<br>
+                Tout est automatique.
             </p>
             <p class="help-text"><b>Réserver :</b> Groupe → Jours → Réserver</p>
             <p class="help-text"><b>Supprimer :</b> Jours → Effacer</p>
-            <p class="help-text"><b>Visu 3 mois :</b> Vue d'ensemble</p>
+            <p class="help-text"><b>Changer mois :</b> Flèches ou balayer</p>
         </div>
     </div>
 
     <div class="toasts" id="toasts"></div>
 
     <script>
+        // ============ 100% EN LIGNE - JSONBlob.com (GRATUIT, PAS DE COMPTE) ============
         const API = 'https://jsonblob.com/api/jsonBlob';
+        
         const MOIS = ['Janvier','Février','Mars','Avril','Mai','Juin','Juillet','Août','Septembre','Octobre','Novembre','Décembre'];
         const MOIS_COURT = ['Jan','Fév','Mar','Avr','Mai','Jun','Jul','Aoû','Sep','Oct','Nov','Déc'];
         const GRP = [
@@ -820,39 +797,88 @@
 
         let currentMonth = new Date().getMonth();
         let currentYear = new Date().getFullYear();
-        let visuMonth = new Date().getMonth();
+        let visuMonth = 0;
         let visuYear = new Date().getFullYear();
         let G = 'sabrina';
         let sel = new Set();
-        let data = { reservations: [], emails: [] };
+        let data = { reservations: [] };
         let blobId = null;
+        let isOnline = false;
 
-        // CLOUD
+        // ============ CLOUD ============
         async function initCloud() {
             const params = new URLSearchParams(location.search);
             blobId = params.get('id');
-            if (blobId) { if (await chargerCloud()) { updateUrl(); return; } }
+            
+            if (blobId) {
+                const ok = await chargerCloud();
+                if (ok) {
+                    updateUrl();
+                    return;
+                }
+            }
+            await creerCloud();
+        }
+
+        async function creerCloud() {
+            setSync(false, 'Création...');
             try {
-                const r = await fetch(API, { method: 'POST', headers: {'Content-Type': 'application/json'}, body: JSON.stringify(data) });
-                if (r.ok) { blobId = r.headers.get('Location').split('/').pop(); updateUrl(); setSync(true); }
-            } catch(e) { setSync(false); }
+                const response = await fetch(API, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
+                    body: JSON.stringify(data)
+                });
+                if (!response.ok) throw new Error('Erreur ' + response.status);
+                const location = response.headers.get('Location');
+                if (location) {
+                    blobId = location.split('/').pop();
+                    updateUrl();
+                    setSync(true);
+                    toast('Planning créé !', 'ok');
+                }
+            } catch(e) {
+                console.error(e);
+                setSync(false, 'Erreur connexion');
+                toast('Erreur connexion', 'err');
+            }
         }
 
         async function sauvegarder() {
             if (!blobId) return false;
+            setSync(false, 'Sauvegarde...');
             try {
-                const r = await fetch(`${API}/${blobId}`, { method: 'PUT', headers: {'Content-Type': 'application/json'}, body: JSON.stringify(data) });
-                setSync(r.ok); return r.ok;
-            } catch(e) { setSync(false); return false; }
+                const response = await fetch(`${API}/${blobId}`, {
+                    method: 'PUT',
+                    headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
+                    body: JSON.stringify(data)
+                });
+                if (!response.ok) throw new Error('Erreur ' + response.status);
+                setSync(true);
+                return true;
+            } catch(e) {
+                console.error(e);
+                setSync(false, 'Erreur');
+                return false;
+            }
         }
 
         async function chargerCloud() {
             if (!blobId) return false;
+            setSync(false, 'Chargement...');
             try {
-                const r = await fetch(`${API}/${blobId}`);
-                if (r.ok) { data = await r.json(); renderCal(); renderVisu(); setSync(true); return true; }
-            } catch(e) {}
-            setSync(false); return false;
+                const response = await fetch(`${API}/${blobId}`, { headers: { 'Accept': 'application/json' } });
+                if (!response.ok) throw new Error('Erreur ' + response.status);
+                data = await response.json();
+                if (!data.reservations) data.reservations = [];
+                renderCal();
+                renderVisu();
+                setSync(true);
+                return true;
+            } catch(e) {
+                console.error(e);
+                setSync(false, 'Erreur');
+                return false;
+            }
         }
 
         function updateUrl() {
@@ -863,61 +889,52 @@
             }
         }
 
-        function setSync(ok) {
+        function setSync(ok, txt) {
+            isOnline = ok;
             document.getElementById('syncDot').className = 'sync-dot' + (ok ? '' : ' off');
-            document.getElementById('syncTxt').textContent = ok ? 'En ligne ✓' : 'Offline';
+            document.getElementById('syncTxt').textContent = txt || (ok ? 'En ligne ✓' : 'Hors ligne');
         }
 
-        // FÉRIÉS
+        // ============ FÉRIÉS ============
         function feries(y) {
-            const f = [
-                {d:`${y}-01-01`,n:"FÉRIÉ"}, {d:`${y}-05-01`,n:"FÉRIÉ"},
-                {d:`${y}-05-08`,n:"FÉRIÉ"}, {d:`${y}-07-14`,n:"FÉRIÉ"},
-                {d:`${y}-08-15`,n:"FÉRIÉ"}, {d:`${y}-11-01`,n:"FÉRIÉ"},
-                {d:`${y}-11-11`,n:"FÉRIÉ"}, {d:`${y}-12-25`,n:"FÉRIÉ"}
-            ];
+            const f = [`${y}-01-01`, `${y}-05-01`, `${y}-05-08`, `${y}-07-14`, `${y}-08-15`, `${y}-11-01`, `${y}-11-11`, `${y}-12-25`];
             const a=y%19,b=Math.floor(y/100),c=y%100,d=Math.floor(b/4),e=b%4;
             const z=Math.floor((b+8)/25),g=Math.floor((b-z+1)/3);
             const h=(19*a+b-d-g+15)%30,i=Math.floor(c/4),k=c%4;
             const l=(32+2*e+2*i-h-k)%7,m=Math.floor((a+11*h+22*l)/451);
             const mo=Math.floor((h+l-7*m+114)/31),da=((h+l-7*m+114)%31)+1;
             const p=new Date(y,mo-1,da);
-            const add=(dt,n)=>{const r=new Date(dt);r.setDate(dt.getDate()+n);return r};
-            f.push({d:fmt(add(p,1)),n:"FÉRIÉ"},{d:fmt(add(p,39)),n:"FÉRIÉ"},{d:fmt(add(p,50)),n:"FÉRIÉ"});
-            return f;
+            const add=(dt,n)=>{const r=new Date(dt);r.setDate(dt.getDate()+n);return fmt(r)};
+            f.push(add(p,1), add(p,39), add(p,50));
+            return new Set(f);
         }
 
-        // VACANCES
+        // ============ VACANCES ============
         function vacances(y) {
             const v=[];
-            const add=(s,e)=>{const sd=new Date(s),ed=new Date(e);for(let d=new Date(sd);d<=ed;d.setDate(d.getDate()+1))if(d.getFullYear()===y)v.push({d:fmt(d),n:"VAC"})};
+            const add=(s,e)=>{const sd=new Date(s),ed=new Date(e);for(let d=new Date(sd);d<=ed;d.setDate(d.getDate()+1))if(d.getFullYear()===y)v.push(fmt(d))};
             if(y===2025){add('2025-02-22','2025-03-10');add('2025-04-19','2025-05-05');add('2025-07-05','2025-09-01');add('2025-10-18','2025-11-03');add('2025-12-20','2025-12-31')}
             if(y===2026){add('2026-01-01','2026-01-05');add('2026-02-14','2026-03-02');add('2026-04-11','2026-04-27');add('2026-07-04','2026-09-01');add('2026-10-17','2026-11-02');add('2026-12-19','2026-12-31')}
-            return v;
+            return new Set(v);
         }
 
         function fmt(d){return `${d.getFullYear()}-${String(d.getMonth()+1).padStart(2,'0')}-${String(d.getDate()).padStart(2,'0')}`}
 
-        // RENDER GROUPES
+        // ============ RENDER ============
         function renderG() {
             document.getElementById('grps').innerHTML = GRP.map(g => 
                 `<div class="grp ${g.id} ${G===g.id?'on':''}" onclick="selG('${g.id}')">${g.nom}</div>`
             ).join('');
         }
 
-        // RENDER CALENDRIER 1 MOIS
         function renderCal() {
             const grid = document.getElementById('daysGrid');
-            const fer = feries(currentYear);
-            const vac = vacances(currentYear);
-            const ferSet = new Set(fer.map(f => f.d));
-            const vacSet = new Set(vac.map(v => v.d));
-            
+            const ferSet = feries(currentYear);
+            const vacSet = vacances(currentYear);
             const daysInMonth = new Date(currentYear, currentMonth + 1, 0).getDate();
             const firstDay = (new Date(currentYear, currentMonth, 1).getDay() + 6) % 7;
             
             let h = '';
-            
             for (let i = 0; i < firstDay; i++) h += '<div class="dc empty"></div>';
             
             for (let d = 1; d <= daysInMonth; d++) {
@@ -925,46 +942,33 @@
                 const ds = fmt(dt);
                 const dow = (dt.getDay() + 6) % 7;
                 const isWE = dow >= 5;
-                
                 const isFer = ferSet.has(ds);
                 const isVac = vacSet.has(ds);
-                const res = data.reservations.find(r => r.dates.includes(ds));
+                const res = data.reservations.find(r => r.dates && r.dates.includes(ds));
                 const isSel = sel.has(ds);
                 
                 let cls = ['dc'];
                 let label = '';
                 let ini = '';
                 
-                // Détermine le label (férié ou vacances)
-                if (isFer) {
-                    label = '<span class="label">FÉRIÉ</span>';
-                } else if (isVac) {
-                    label = '<span class="label">VAC</span>';
-                }
+                if (isFer) label = '<span class="label">FÉRIÉ</span>';
+                else if (isVac) label = '<span class="label">VAC</span>';
                 
-                // Si réservation : COULEUR DU GROUPE (prioritaire)
                 if (res) {
                     cls.push('res', res.groupId);
                     const g = GRP.find(x => x.id === res.groupId);
                     ini = res.customName ? res.customName.substring(0,3).toUpperCase() : g.ini;
-                } else {
-                    // Pas de réservation : afficher férié/vacances/we normalement
-                    if (isFer) {
-                        cls.push('fer');
-                    } else if (isVac) {
-                        cls.push('vac');
-                    } else if (isWE) {
-                        cls.push('we');
-                    }
+                } else if (isFer) {
+                    cls.push('fer');
+                } else if (isVac) {
+                    cls.push('vac');
+                } else if (isWE) {
+                    cls.push('we');
                 }
                 
                 if (isSel) cls.push('sel');
                 
-                h += `<div class="${cls.join(' ')}" onclick="toggleDate('${ds}')">
-                    ${label}
-                    <span class="num">${d}</span>
-                    ${ini ? `<span class="ini">${ini}</span>` : ''}
-                </div>`;
+                h += `<div class="${cls.join(' ')}" onclick="toggleDate('${ds}')">${label}<span class="num">${d}</span>${ini ? `<span class="ini">${ini}</span>` : ''}</div>`;
             }
             
             const totalCells = firstDay + daysInMonth;
@@ -976,29 +980,20 @@
             document.getElementById('navYear').textContent = currentYear;
         }
 
-        // RENDER VISU 3 MOIS
         function renderVisu() {
             const grid = document.getElementById('visuGrid');
             let h = '';
             
-            for (let m = 0; m < 3; m++) {
+            for (let m = 0; m < 6; m++) {
                 const month = (visuMonth + m) % 12;
                 const year = visuYear + Math.floor((visuMonth + m) / 12);
-                
-                const fer = feries(year);
-                const vac = vacances(year);
-                const ferSet = new Set(fer.map(f => f.d));
-                const vacSet = new Set(vac.map(v => v.d));
-                
+                const ferSet = feries(year);
+                const vacSet = vacances(year);
                 const daysInMonth = new Date(year, month + 1, 0).getDate();
                 const firstDay = (new Date(year, month, 1).getDay() + 6) % 7;
                 
-                h += `<div class="visu-month">
-                    <div class="visu-month-head">${MOIS[month]} ${year}</div>
-                    <div class="visu-days-head">
-                        <span class="visu-dh">L</span><span class="visu-dh">M</span><span class="visu-dh">M</span>
-                        <span class="visu-dh">J</span><span class="visu-dh">V</span><span class="visu-dh">S</span><span class="visu-dh">D</span>
-                    </div>
+                h += `<div class="visu-month"><div class="visu-month-head">${MOIS[month]} ${year}</div>
+                    <div class="visu-days-head"><span class="visu-dh">L</span><span class="visu-dh">M</span><span class="visu-dh">M</span><span class="visu-dh">J</span><span class="visu-dh">V</span><span class="visu-dh">S</span><span class="visu-dh">D</span></div>
                     <div class="visu-days">`;
                 
                 for (let i = 0; i < firstDay; i++) h += '<div class="visu-dc empty"></div>';
@@ -1007,40 +1002,30 @@
                     const dt = new Date(year, month, d);
                     const ds = fmt(dt);
                     const dow = (dt.getDay() + 6) % 7;
-                    
                     const isFer = ferSet.has(ds);
                     const isVac = vacSet.has(ds);
-                    const res = data.reservations.find(r => r.dates.includes(ds));
+                    const res = data.reservations.find(r => r.dates && r.dates.includes(ds));
                     
                     let cls = ['visu-dc'];
-                    
-                    // Réservation prioritaire sur tout
-                    if (res) {
-                        cls.push('res', res.groupId);
-                    } else if (isFer) {
-                        cls.push('fer');
-                    } else if (isVac) {
-                        cls.push('vac');
-                    } else if (dow >= 5) {
-                        cls.push('we');
-                    }
+                    if (res) cls.push('res', res.groupId);
+                    else if (isFer) cls.push('fer');
+                    else if (isVac) cls.push('vac');
+                    else if (dow >= 5) cls.push('we');
                     
                     h += `<div class="${cls.join(' ')}">${d}</div>`;
                 }
-                
                 h += '</div></div>';
             }
             
             grid.innerHTML = h;
-            
-            const endMonth = (visuMonth + 2) % 12;
-            const endYear = visuYear + Math.floor((visuMonth + 2) / 12);
-            document.getElementById('visuTitle').textContent = `${MOIS_COURT[visuMonth]} - ${MOIS_COURT[endMonth]} ${endYear}`;
+            const endMonthIdx = (visuMonth + 5) % 12;
+            const endYear = visuYear + Math.floor((visuMonth + 5) / 12);
+            document.getElementById('visuTitle').textContent = `${MOIS_COURT[visuMonth]} ${visuYear} - ${MOIS_COURT[endMonthIdx]} ${endYear}`;
         }
 
         function updN() { document.getElementById('selN').textContent = sel.size; }
 
-        // ACTIONS
+        // ============ ACTIONS ============
         function selG(id) { G = id; renderG(); }
         function toggleDate(ds) { sel.has(ds) ? sel.delete(ds) : sel.add(ds); renderCal(); updN(); }
         function navP(dir) {
@@ -1050,13 +1035,19 @@
             renderCal();
         }
 
-        // VISU
-        function openVisu() { 
-            visuMonth = currentMonth; 
-            visuYear = currentYear; 
-            renderVisu(); 
-            document.getElementById('visuPage').classList.add('on'); 
+        // ============ SWIPE ============
+        let touchStartX = 0;
+        function initSwipe() {
+            const container = document.getElementById('swipeContainer');
+            container.addEventListener('touchstart', (e) => { touchStartX = e.changedTouches[0].screenX; }, { passive: true });
+            container.addEventListener('touchend', (e) => {
+                const diff = touchStartX - e.changedTouches[0].screenX;
+                if (Math.abs(diff) > 50) navP(diff > 0 ? 1 : -1);
+            }, { passive: true });
         }
+
+        // ============ VISU ============
+        function openVisu() { visuMonth = currentMonth; visuYear = currentYear; renderVisu(); document.getElementById('visuPage').classList.add('on'); }
         function closeVisu() { document.getElementById('visuPage').classList.remove('on'); }
         function visuNav(dir) {
             visuMonth += dir;
@@ -1065,28 +1056,26 @@
             renderVisu();
         }
 
-        // EFFACER
+        // ============ EFFACER ============
         async function effacer() {
-            if (sel.size === 0) { toast('Sélectionnez des dates', 'info'); return; }
+            if (sel.size === 0) { toast('Sélectionne des dates', 'info'); return; }
             let supprime = false;
             data.reservations.forEach(r => {
-                const avant = r.dates.length;
-                r.dates = r.dates.filter(d => !sel.has(d));
-                if (r.dates.length < avant) supprime = true;
+                if (r.dates) {
+                    const avant = r.dates.length;
+                    r.dates = r.dates.filter(d => !sel.has(d));
+                    if (r.dates.length < avant) supprime = true;
+                }
             });
-            data.reservations = data.reservations.filter(r => r.dates.length > 0);
-            if (supprime) {
-                const ok = await sauvegarder();
-                toast(ok ? 'Supprimé ✓' : 'Erreur', ok ? 'ok' : 'err');
-            } else {
-                toast('Aucune réservation', 'info');
-            }
+            data.reservations = data.reservations.filter(r => r.dates && r.dates.length > 0);
+            if (supprime) { const ok = await sauvegarder(); if (ok) toast('Supprimé ✓', 'ok'); }
+            else toast('Aucune réservation', 'info');
             sel.clear(); renderCal(); renderVisu(); updN();
         }
 
-        // RÉSERVER
+        // ============ RÉSERVER ============
         function reserver() {
-            if (sel.size === 0) { toast('Sélectionnez des dates', 'info'); return; }
+            if (sel.size === 0) { toast('Sélectionne des dates', 'info'); return; }
             const g = GRP.find(x => x.id === G);
             document.getElementById('groupBadge').className = 'group-badge ' + G;
             document.getElementById('groupBadge').textContent = g.nom;
@@ -1102,40 +1091,41 @@
             let cust = '';
             if (G === 'autres') {
                 cust = document.getElementById('customName').value.trim();
-                if (!cust) { toast('Entrez un nom', 'err'); return; }
+                if (!cust) { toast('Entre un nom', 'err'); return; }
             }
-            data.reservations.forEach(r => { r.dates = r.dates.filter(d => !sel.has(d)); });
-            data.reservations = data.reservations.filter(r => r.dates.length > 0);
+            data.reservations.forEach(r => { if (r.dates) r.dates = r.dates.filter(d => !sel.has(d)); });
+            data.reservations = data.reservations.filter(r => r.dates && r.dates.length > 0);
             data.reservations.push({ id: Date.now(), groupId: G, customName: cust, dates: Array.from(sel), createdAt: new Date().toISOString() });
             const ok = await sauvegarder();
-            toast(ok ? 'Réservé ✓' : 'Erreur', ok ? 'ok' : 'err');
+            if (ok) toast('Réservé ✓', 'ok');
             closeM('mRes');
             document.getElementById('customName').value = '';
             sel.clear(); renderCal(); renderVisu(); updN();
         }
 
+        // ============ MODALS ============
         function openShare() { document.getElementById('shareUrl').value = location.href; document.getElementById('mShare').classList.add('on'); }
         function copyUrl() { navigator.clipboard.writeText(location.href); toast('Lien copié ! 📋', 'ok'); }
         function openHelp() { document.getElementById('mHelp').classList.add('on'); }
         function closeM(id) { document.getElementById(id).classList.remove('on'); }
-        
         function toast(msg, type='info') {
             const t = document.createElement('div');
             t.className = `toast ${type}`;
             t.textContent = msg;
             document.getElementById('toasts').appendChild(t);
-            setTimeout(() => t.remove(), 2500);
+            setTimeout(() => t.remove(), 3500);
         }
 
-        // INIT
+        // ============ INIT ============
         async function init() {
             await initCloud();
+            initSwipe();
             renderG();
             renderCal();
             renderVisu();
             updN();
             document.getElementById('loader').classList.add('hide');
-            setInterval(chargerCloud, 10000);
+            setInterval(() => { if (blobId && isOnline) chargerCloud(); }, 15000);
         }
         
         init();
